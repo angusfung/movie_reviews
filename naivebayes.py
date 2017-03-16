@@ -183,6 +183,55 @@ def most_predictive(neg_dict, pos_dict):
     return neg_words, pos_words
             
 def get_train(neg_dict, pos_dict):
+    global num_words
+    
+    combined_list = []
+    
+    #convert the keys of the dicts into a list
+    for word in neg_dict:
+        combined_list.append(word)
+    for word in pos_dict:
+        combined_list.append(word)
+    #remove duplicates in the list
+    combined_list = list(set(combined_list))
+    num_words = len(combined_list) 
+    
+    #X is a MxN vector, where M is the number of reviews
+    #                         N is the number of words 
+    #Y is a Mx1 vector, where M is the number of reviews
+    x = zeros((1600,len(combined_list)))
+    y = zeros((1600,2)) #one hot encoding
+    cur_row = 0 #keep track of which column we're on
+    
+    path = 'training_set'
+    
+    for review in os.listdir(path + "\\neg"): #[1,0] corresponds to a negative review
+        with open(os.getcwd()+"\\"+path+"\\neg\\"+review) as f:
+            unique_words = set(f.read().split())
+            i=0
+            for word in combined_list:
+                if word in unique_words:
+                    x[cur_row, i] = 1
+                    y[cur_row] = [1, 0]
+                i+=1
+        cur_row += 1
+        #print(cur_row)
+        
+    for review in os.listdir(path + "\\pos"): #[0,1] corresponds to a positive review
+        with open(os.getcwd()+"\\"+path+"\\pos\\"+review) as f:
+            unique_words = set(f.read().split())
+            i=0
+            for word in combined_list:
+                if word in unique_words:
+                    x[cur_row, i] = 1
+                    y[cur_row] = [0, 1]
+                i+=1
+        cur_row += 1
+        #print(cur_row)
+    return x, y
+
+
+def get_test(neg_dict, pos_dict):
 
     combined_list = []
     
@@ -194,41 +243,38 @@ def get_train(neg_dict, pos_dict):
     #remove duplicates in the list
     combined_list = list(set(combined_list))
     
-    #X is a MxN vector, where M is the number of reviews
-    #                         N is the number of words 
-    #Y is a Mx1 vector, where M is the number of reviews
-    x = zeros((1600,len(combined_list)))
-    y = zeros((1600,1))
+    x = zeros((200,len(combined_list)))
+    y = zeros((200,2))
     cur_row = 0 #keep track of which column we're on
     
-    path = 'training_set'
+    path = 'test_set'
     
-    for review in os.listdir(path + "\\neg"): #y = 0 corresponds to a negative review
+    for review in os.listdir(path + "\\neg"): 
         with open(os.getcwd()+"\\"+path+"\\neg\\"+review) as f:
             unique_words = set(f.read().split())
             i=0
             for word in combined_list:
                 if word in unique_words:
                     x[cur_row, i] = 1
-                    y[cur_row] = 0
+                    y[cur_row] = [1, 0]
                 i+=1
         cur_row += 1
         #print(cur_row)
         
-    for review in os.listdir(path + "\\pos"): #y = 1 corresponds to a positive review
+    for review in os.listdir(path + "\\pos"): 
         with open(os.getcwd()+"\\"+path+"\\pos\\"+review) as f:
             unique_words = set(f.read().split())
             i=0
             for word in combined_list:
                 if word in unique_words:
                     x[cur_row, i] = 1
-                    y[cur_row] = 1
+                    y[cur_row] = [0, 1]
                 i+=1
         cur_row += 1
         #print(cur_row)
-    return x, y, len(combined_list)
-
-def logistic_regression(num_words):
+    return x, y
+    
+def logistic_regression(neg_dict, pos_dict, num_words):
     
     '''This part may make no sense at all...noob at tensorflow
     '''
@@ -236,6 +282,42 @@ def logistic_regression(num_words):
     x = tf.placeholder(tf.float32, [None, num_words])
     W0 = tf.Variable(tf.random_normal([num_words, 1], stddev=0.01))
     b0 = tf.Variable(tf.random_normal([1], stddev=0.01))
+    
+    y = tf.nn.sigmoid(tf.matmul(x, W0)+b0)
+    y_ = tf.placeholder(tf.float32, [None, 2])
+    
+    lam = 0.00000
+    decay_penalty =lam*tf.reduce_sum(tf.square(W0))
+    reg_NLL = -tf.reduce_sum(y_*tf.log(y))+decay_penalty
+    
+    train_step = tf.train.AdamOptimizer(0.0005).minimize(reg_NLL)
+    
+    init = tf.global_variables_initializer()
+    sess = tf.Session()
+    sess.run(init)
+    
+    correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
+    accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+    test_x, test_y = get_test(neg_dict, pos_dict)
+    
+    
+    for i in range(5000):
+    #print i  
+        batch_xs, batch_ys = get_train(neg_dict, pos_dict)
+        sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
+        
+        
+        if i % 1 == 0:
+            print("i=",i)
+            print("Test:", sess.run(accuracy, feed_dict={x: test_x, y_: test_y}))
+            batch_xs, batch_ys = get_train(neg_dict, pos_dict)
+        
+            print("Train:", sess.run(accuracy, feed_dict={x: batch_xs, y_: batch_ys}))
+            print("Penalty:", sess.run(decay_penalty))
+
+    return
+
+    
     
 
                     
@@ -289,5 +371,6 @@ if run_part4 == True:
     k = 50
     neg_dict = calculate_prob(dicts[0], m, k)
     pos_dict = calculate_prob(dicts[1], m, k)
-    x,y,num_words = get_train(neg_dict, pos_dict)
+    x,y = get_train(neg_dict, pos_dict)
+    logistic_regression(neg_dict, pos_dict, num_words)
     
