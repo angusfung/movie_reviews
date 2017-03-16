@@ -12,12 +12,13 @@ from numpy import random
 import os
 import shutil
 import string
+import operator
 
 
 download = False
-run_part2 = True
-run_tuning = False
-
+run_part2 = False
+run_tuning = False #I've ran this before & saved the results in a text file called mkscore.
+run_part3 = True
 def download_dataset(neg_index, pos_index, set_type,size): 
     '''param index: list of random, unique numbers
        param set_type: string that specifies training/test/validation set
@@ -170,7 +171,12 @@ def max_validation():
             score1 = classify('test_set', neg_dict, pos_dict)
             print("validation set: " + "m = " + str(m) + " k = " + str(k), score, "test set: ", "m = " + str(m) + " k = " + str(k), score1)
 
-            
+def most_predictive(neg_dict, pos_dict):
+    
+    neg_words = dict(sorted(neg_dict.items(), key=operator.itemgetter(1), reverse=True)[:10])
+    print(neg_words)
+    return neg_words
+                
         
 
 if download == True:
@@ -192,14 +198,25 @@ if download == True:
 
 if run_part2 == True:
     dicts = generate_dict('training_set')
-    neg_dict = calculate_prob(dicts[0])
-    pos_dict = calculate_prob(dicts[1])
+    m = 50
+    k = 50
+    neg_dict = calculate_prob(dicts[0], m, k)
+    pos_dict = calculate_prob(dicts[1], m, k)
     score = classify('validation_set', neg_dict, pos_dict)
+    score = classify('test_set', neg_dict, pos_dict)
     print(score)
 
 if run_tuning == True:
     max_validation()
-    '''I've ran the scores and saved them in a text file called mkscore.
+    '''I've ran this before and saved the results in a text file called mkscore.
        Highest Performance Tuning:
         validation set: m = 50 k = 50 (0.57, 0.82) test set:  m = 50 k = 50 (0.58, 0.78)
     '''
+    
+if run_part3 == True:
+    dicts = generate_dict('training_set')
+    m = 50
+    k = 50
+    neg_dict = calculate_prob(dicts[0], m, k)
+    pos_dict = calculate_prob(dicts[1], m, k)
+    most_predictive(neg_dict, pos_dict)
