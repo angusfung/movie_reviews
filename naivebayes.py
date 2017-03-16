@@ -68,9 +68,10 @@ def download_dataset(neg_index, pos_index, set_type,size):
             f.close()
     return
     
-def naivebayes(path):
+def generate_dict(path):
     '''param path is the location of the training set
-    e.g 'training_set'
+            e.g 'training_set'
+       return two dicts, with each word occurance and its frequency
     '''
     pos_dict = {} #format = (key, value) = (word, frequency)
     neg_dict = {}
@@ -94,10 +95,72 @@ def naivebayes(path):
                     pos_dict[word] = 1
                 else: #the word is in dictionary
                     pos_dict[word] += 1
-                
     return neg_dict, pos_dict
     
+def calculate_prob(dict):
     
+    size = len(dict)
+    m = 2
+    k = 2
+    
+    for word in dict:
+        dict[word] = (dict[word] + m*k) / (size + k)
+    
+    return dict
+
+def classify(path, neg_dict, pos_dict):
+    '''param path is the location of the training set
+            e.g 'testing set'
+       param dict {neg, pos} have key = word, value = probability
+    '''
+    prior = log(0.5)
+    neg_score = 0
+    pos_score = 0
+
+    #go through the negative review first
+    for review in os.listdir(path + "\\neg"):
+        with open(os.getcwd()+"\\"+path+"\\neg\\"+review) as f:
+            unique_words = set(f.read().split())
+            neg_sum = 0 #compute P(ai|negative)
+            pos_sum = 0 #compute P(ai|positive) [then take the largest]
+            neg_prob = 0
+            pos_prob = 0
+            
+            for word in unique_words:
+                if neg_dict.get(word): #if word is in dictionary
+                    neg_sum += log(neg_dict[word])
+                if pos_dict.get(word):
+                    pos_sum += log(pos_dict[word])
+            neg_prob = exp(neg_sum + prior)
+            pos_prob = exp(pos_sum + prior)
+            if neg_prob > pos_prob: 
+                neg_score += 1 #since we know the review must be negative
+                
+    #go through the positive review 
+    for review in os.listdir(path + "\\pos"):
+        with open(os.getcwd()+"\\"+path+"\\pos\\"+review) as f:
+            unique_words = set(f.read().split())
+            neg_sum = 0 #compute P(ai|negative)
+            pos_sum = 0 #compute P(ai|positive) [then take the largest]
+            neg_prob = 0
+            pos_prob = 0
+            
+            for word in unique_words:
+                if neg_dict.get(word): #if word is in dictionary
+                    neg_sum += log(neg_dict[word])
+                if pos_dict.get(word):
+                    pos_sum += log(pos_dict[word])
+            neg_prob = exp(neg_sum + prior)
+            pos_prob = exp(pos_sum + prior)
+            if pos_prob > neg_prob:
+                pos_score += 1 #since we know the review must be positive
+    
+    # return neg_score / 100, pos_score / 100
+    return neg_score, pos_score
+    
+        
+        
+
 if download == True:
     #generate 2000 unique numbers
     random.seed(0) 
@@ -116,4 +179,8 @@ if download == True:
     print("Please wait while the validation set set is being processed...")
 
 if run_part2 == True:
-    results = naivebayes('training_set')
+    dicts = generate_dict('training_set')
+    neg_dict = calculate_prob(dicts[0])
+    pos_dict = calculate_prob(dicts[1])
+    score = classify('test_set', neg_dict, pos_dict)
+    
