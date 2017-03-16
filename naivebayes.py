@@ -13,10 +13,9 @@ import os
 import shutil
 import string
 
-#download the polarity dataset and seperate it into training, testing (200), validation (200)
 
-#1000 positive and negative reviews in polarity dataset
-download = True
+download = False
+run_part2 = True
 
 def download_dataset(neg_index, pos_index, set_type,size): 
     '''param index: list of random, unique numbers
@@ -67,10 +66,37 @@ def download_dataset(neg_index, pos_index, set_type,size):
             f.write(file_text)
             f.truncate()
             f.close()
-                
-        
-    
     return
+    
+def naivebayes(path):
+    '''param path is the location of the training set
+    e.g 'training_set'
+    '''
+    pos_dict = {} #format = (key, value) = (word, frequency)
+    neg_dict = {}
+    
+    #go through the negative review first
+    for review in os.listdir(path + "\\neg"):
+        with open(os.getcwd()+"\\"+path+"\\neg\\"+review) as f:
+            unique_words = set(f.read().split())
+            for word in unique_words:
+                if not neg_dict.get(word): #check if the word is in dictionary
+                    neg_dict[word] = 1
+                else: #the word is in dictionary
+                    neg_dict[word] += 1
+                    
+    #go through the positive reviews
+    for review in os.listdir(path + "\\pos"):
+        with  open(os.getcwd()+"\\"+path+"\\pos\\"+review)as f:
+            unique_words = set(f.read().split())
+            for word in unique_words:
+                if not pos_dict.get(word): #check if the word is in dictionary
+                    pos_dict[word] = 1
+                else: #the word is in dictionary
+                    pos_dict[word] += 1
+                
+    return neg_dict, pos_dict
+    
     
 if download == True:
     #generate 2000 unique numbers
@@ -87,4 +113,7 @@ if download == True:
     print("Please wait while the testing set is being processed...")
     #generate the validation set (size = 200)
     download_dataset(neg_index[900:], pos_index[900:], "\\validation_set", 200) 
-    print("Please wait while the validation set set is being processed...") 
+    print("Please wait while the validation set set is being processed...")
+
+if run_part2 == True:
+    results = naivebayes('training_set')
