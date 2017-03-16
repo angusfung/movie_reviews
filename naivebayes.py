@@ -13,12 +13,15 @@ import os
 import shutil
 import string
 import operator
+import tensorflow as tf
 
 
-download = False
-run_part2 = False
+download   = False
+run_part2  = False
 run_tuning = False #I've ran this before & saved the results in a text file called mkscore.
-run_part3 = True
+run_part3  = False
+run_part4  = True
+
 def download_dataset(neg_index, pos_index, set_type,size): 
     '''param index: list of random, unique numbers
        param set_type: string that specifies training/test/validation set
@@ -174,9 +177,68 @@ def max_validation():
 def most_predictive(neg_dict, pos_dict):
     
     neg_words = dict(sorted(neg_dict.items(), key=operator.itemgetter(1), reverse=True)[:10])
+    pos_words = dict(sorted(pos_dict.items(), key=operator.itemgetter(1), reverse=True)[:10])
     print(neg_words)
-    return neg_words
-                
+    print(pos_words)
+    return neg_words, pos_words
+            
+def get_train(neg_dict, pos_dict):
+
+    combined_list = []
+    
+    #convert the keys of the dicts into a list
+    for word in neg_dict:
+        combined_list.append(word)
+    for word in pos_dict:
+        combined_list.append(word)
+    #remove duplicates in the list
+    combined_list = list(set(combined_list))
+    
+    #X is a MxN vector, where M is the number of reviews
+    #                         N is the number of words 
+    #Y is a Mx1 vector, where M is the number of reviews
+    x = zeros((1600,len(combined_list)))
+    y = zeros((1600,1))
+    cur_row = 0 #keep track of which column we're on
+    
+    path = 'training_set'
+    
+    for review in os.listdir(path + "\\neg"): #y = 0 corresponds to a negative review
+        with open(os.getcwd()+"\\"+path+"\\neg\\"+review) as f:
+            unique_words = set(f.read().split())
+            i=0
+            for word in combined_list:
+                if word in unique_words:
+                    x[cur_row, i] = 1
+                    y[cur_row] = 0
+                i+=1
+        cur_row += 1
+        #print(cur_row)
+        
+    for review in os.listdir(path + "\\pos"): #y = 1 corresponds to a positive review
+        with open(os.getcwd()+"\\"+path+"\\pos\\"+review) as f:
+            unique_words = set(f.read().split())
+            i=0
+            for word in combined_list:
+                if word in unique_words:
+                    x[cur_row, i] = 1
+                    y[cur_row] = 1
+                i+=1
+        cur_row += 1
+        #print(cur_row)
+    return x, y, len(combined_list)
+
+def logistic_regression(num_words):
+    
+    '''This part may make no sense at all...noob at tensorflow
+    '''
+    # Initialize Tensor Flow variables
+    x = tf.placeholder(tf.float32, [None, num_words])
+    W0 = tf.Variable(tf.random_normal([num_words, 1], stddev=0.01))
+    b0 = tf.Variable(tf.random_normal([1], stddev=0.01))
+    
+
+                    
         
 
 if download == True:
@@ -220,3 +282,12 @@ if run_part3 == True:
     neg_dict = calculate_prob(dicts[0], m, k)
     pos_dict = calculate_prob(dicts[1], m, k)
     most_predictive(neg_dict, pos_dict)
+
+if run_part4 == True:
+    dicts = generate_dict('training_set')
+    m = 50
+    k = 50
+    neg_dict = calculate_prob(dicts[0], m, k)
+    pos_dict = calculate_prob(dicts[1], m, k)
+    x,y,num_words = get_train(neg_dict, pos_dict)
+    
