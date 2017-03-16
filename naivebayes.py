@@ -16,6 +16,7 @@ import string
 
 download = False
 run_part2 = True
+run_tuning = False
 
 def download_dataset(neg_index, pos_index, set_type,size): 
     '''param index: list of random, unique numbers
@@ -97,14 +98,14 @@ def generate_dict(path):
                     pos_dict[word] += 1
     return neg_dict, pos_dict
     
-def calculate_prob(dict):
+def calculate_prob(dict, m, k):
     
-    size = len(dict)
-    m = 2
-    k = 2
+    size = 800
+    # m = 15
+    # k = 30
     
     for word in dict:
-        dict[word] = (dict[word] + m*k) / (size + k)
+        dict[word] = (dict[word] + m*k) / (800 + k)
     
     return dict
 
@@ -155,10 +156,21 @@ def classify(path, neg_dict, pos_dict):
             if pos_prob > neg_prob:
                 pos_score += 1 #since we know the review must be positive
     
-    # return neg_score / 100, pos_score / 100
-    return neg_score, pos_score
-    
-        
+    return neg_score / 100, pos_score / 100
+
+def max_validation():
+    '''loops through all possible values of m, k and prints out the scores
+    '''
+    dicts = generate_dict('training_set')
+    for m in range(25, 50, 2):
+        for k in range(25, 50,2):
+            neg_dict = calculate_prob(dicts[0],m,k)
+            pos_dict = calculate_prob(dicts[1],m,k)
+            score = classify('validation_set', neg_dict, pos_dict)
+            score1 = classify('test_set', neg_dict, pos_dict)
+            print("validation set: " + "m = " + str(m) + " k = " + str(k), score, "test set: ", "m = " + str(m) + " k = " + str(k), score1)
+
+            
         
 
 if download == True:
@@ -182,5 +194,12 @@ if run_part2 == True:
     dicts = generate_dict('training_set')
     neg_dict = calculate_prob(dicts[0])
     pos_dict = calculate_prob(dicts[1])
-    score = classify('test_set', neg_dict, pos_dict)
-    
+    score = classify('validation_set', neg_dict, pos_dict)
+    print(score)
+
+if run_tuning == True:
+    max_validation()
+    '''I've ran the scores and saved them in a text file called mkscore.
+       Highest Performance Tuning:
+        validation set: m = 50 k = 50 (0.57, 0.82) test set:  m = 50 k = 50 (0.58, 0.78)
+    '''
