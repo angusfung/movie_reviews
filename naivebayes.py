@@ -16,11 +16,11 @@ import operator
 import tensorflow as tf
 
 
-download   = False
-run_part2  = False
-run_tuning = False #I've ran this before & saved the results in a text file called mkscore.
-run_part3  = False
-run_part4  = True
+download   = False #download dataset (just pull from github, don't need to run this)
+run_part2  = False #prints naive bayes classification performance
+run_tuning = False #tuning m and k for naive bayes
+run_part3  = False #printing 10 most important words for negative and positive reviews
+run_part4  = True  #logistic regression via. tensor flow
 
 def download_dataset(neg_index, pos_index, set_type,size): 
     '''param index: list of random, unique numbers
@@ -101,13 +101,40 @@ def generate_dict(path):
                 else: #the word is in dictionary
                     pos_dict[word] += 1
     return neg_dict, pos_dict
+
+
+def generate_dict_normalized(path): #same as above, but normalizing by length (Piazza)
+    '''param path is the location of the training set
+            e.g 'training_set'
+       return two dicts, with each word occurance and its frequency
+    '''
+    pos_dict = {} #format = (key, value) = (word, frequency)
+    neg_dict = {}
+    
+    #go through the negative review first
+    for review in os.listdir(path + "\\neg"):
+        with open(os.getcwd()+"\\"+path+"\\neg\\"+review) as f:
+            unique_words = set(f.read().split())
+            for word in unique_words:
+                if not neg_dict.get(word): #check if the word is in dictionary
+                    neg_dict[word] = 1 / len(unique_words)
+                else: #the word is in dictionary
+                    neg_dict[word] += 1 / len(unique_words)
+                    
+    #go through the positive reviews
+    for review in os.listdir(path + "\\pos"):
+        with  open(os.getcwd()+"\\"+path+"\\pos\\"+review)as f:
+            unique_words = set(f.read().split())
+            for word in unique_words:
+                if not pos_dict.get(word): #check if the word is in dictionary
+                    pos_dict[word] = 1 / len(unique_words)
+                else: #the word is in dictionary
+                    pos_dict[word] += 1 / len(unique_words)
+    return neg_dict, pos_dict
     
 def calculate_prob(dict, m, k):
     
     size = 800
-    # m = 15
-    # k = 30
-    
     for word in dict:
         dict[word] = (dict[word] + m*k) / (800 + k)
     
@@ -164,10 +191,12 @@ def classify(path, neg_dict, pos_dict):
 
 def max_validation():
     '''loops through all possible values of m, k and prints out the scores
+       change the range values in the for loop and incremental size
     '''
-    dicts = generate_dict('training_set')
-    for m in range(25, 50, 2):
-        for k in range(25, 50,2):
+    #dicts = generate_dict('training_set')
+    dicts = generate_dict_normalized('training_set')
+    for m in range(50, 75, 2):
+        for k in range(50, 75,2):
             neg_dict = calculate_prob(dicts[0],m,k)
             pos_dict = calculate_prob(dicts[1],m,k)
             score = classify('validation_set', neg_dict, pos_dict)
@@ -175,6 +204,9 @@ def max_validation():
             print("validation set: " + "m = " + str(m) + " k = " + str(k), score, "test set: ", "m = " + str(m) + " k = " + str(k), score1)
 
 def most_predictive(neg_dict, pos_dict):
+    '''param dict {pos, neg} which is a dictionary containing (word, probability)
+       returns top 10 most common words
+    '''
     
     neg_words = dict(sorted(neg_dict.items(), key=operator.itemgetter(1), reverse=True)[:10])
     pos_words = dict(sorted(pos_dict.items(), key=operator.itemgetter(1), reverse=True)[:10])
@@ -183,8 +215,14 @@ def most_predictive(neg_dict, pos_dict):
     return neg_words, pos_words
             
 def get_train(neg_dict, pos_dict):
-    global num_words
+    '''param dict {pos, neg} which is a dictionary containing (word, probability)
+       returns:
+            X is a MxN vector, where M is the number of reviews
+                                     N is the number of words 
+            Y is a Mx1 vector, where M is the number of reviews
+    '''
     
+    global num_words
     combined_list = []
     
     #convert the keys of the dicts into a list
@@ -196,9 +234,6 @@ def get_train(neg_dict, pos_dict):
     combined_list = list(set(combined_list))
     num_words = len(combined_list) 
     
-    #X is a MxN vector, where M is the number of reviews
-    #                         N is the number of words 
-    #Y is a Mx1 vector, where M is the number of reviews
     x = zeros((1600,len(combined_list)))
     y = zeros((1600,2)) #one hot encoding
     cur_row = 0 #keep track of which column we're on
@@ -276,21 +311,20 @@ def get_test(neg_dict, pos_dict):
     
 def logistic_regression(neg_dict, pos_dict, num_words):
     
-    '''This part may make no sense at all...noob at tensorflow
-    '''
+
     # Initialize Tensor Flow variables
     x = tf.placeholder(tf.float32, [None, num_words])
-    W0 = tf.Variable(tf.random_normal([num_words, 1], stddev=0.01))
-    b0 = tf.Variable(tf.random_normal([1], stddev=0.01))
+    W0 = tf.Variable(tf.random_normal([num_words, 2], stddev=0.01))
+    b0 = tf.Variable(tf.random_normal([2], stddev=0.01))
     
     y = tf.nn.softmax(tf.matmul(x, W0)+b0)
     y_ = tf.placeholder(tf.float32, [None, 2])
     
-    lam = 0.00001
+    lam = 0.01
     decay_penalty =lam*tf.reduce_sum(tf.square(W0))
     reg_NLL = -tf.reduce_sum(y_*tf.log(y))+decay_penalty
     
-    train_step = tf.train.AdamOptimizer(0.0005).minimize(reg_NLL)
+    train_step = tf.train.AdamOptimizer(0.005).minimize(reg_NLL)
     
     init = tf.global_variables_initializer()
     sess = tf.Session()
@@ -312,14 +346,10 @@ def logistic_regression(neg_dict, pos_dict, num_words):
             print("Test:", sess.run(accuracy, feed_dict={x: test_x, y_: test_y}))
             print("Train:", sess.run(accuracy, feed_dict={x: batch_xs, y_: batch_ys}))
             print("Penalty:", sess.run(decay_penalty))
-
+            print(sess.run(reg_NLL, feed_dict = {x: batch_xs, y_: batch_ys}))
     return
 
     
-    
-
-                    
-        
 
 if download == True:
     #generate 2000 unique numbers
@@ -339,9 +369,14 @@ if download == True:
     print("Please wait while the validation set set is being processed...")
 
 if run_part2 == True:
+    '''unnormalized settings''' #normalizing actaully made performance worse...
     dicts = generate_dict('training_set')
     m = 50
     k = 50
+    '''normalized settings'''
+    # dicts = generate_dict_normalized('training_set')
+    # m = 25
+    # k = 25
     neg_dict = calculate_prob(dicts[0], m, k)
     pos_dict = calculate_prob(dicts[1], m, k)
     score = classify('validation_set', neg_dict, pos_dict)
