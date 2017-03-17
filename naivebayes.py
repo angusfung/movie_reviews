@@ -283,10 +283,10 @@ def logistic_regression(neg_dict, pos_dict, num_words):
     W0 = tf.Variable(tf.random_normal([num_words, 1], stddev=0.01))
     b0 = tf.Variable(tf.random_normal([1], stddev=0.01))
     
-    y = tf.nn.sigmoid(tf.matmul(x, W0)+b0)
+    y = tf.nn.softmax(tf.matmul(x, W0)+b0)
     y_ = tf.placeholder(tf.float32, [None, 2])
     
-    lam = 0.00000
+    lam = 0.00001
     decay_penalty =lam*tf.reduce_sum(tf.square(W0))
     reg_NLL = -tf.reduce_sum(y_*tf.log(y))+decay_penalty
     
@@ -298,20 +298,18 @@ def logistic_regression(neg_dict, pos_dict, num_words):
     
     correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+    
     test_x, test_y = get_test(neg_dict, pos_dict)
+    batch_xs, batch_ys = get_train(neg_dict, pos_dict)
     
-    
-    for i in range(5000):
+    for i in range(1000):
     #print i  
-        batch_xs, batch_ys = get_train(neg_dict, pos_dict)
         sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
         
         
         if i % 1 == 0:
             print("i=",i)
             print("Test:", sess.run(accuracy, feed_dict={x: test_x, y_: test_y}))
-            batch_xs, batch_ys = get_train(neg_dict, pos_dict)
-        
             print("Train:", sess.run(accuracy, feed_dict={x: batch_xs, y_: batch_ys}))
             print("Penalty:", sess.run(decay_penalty))
 
