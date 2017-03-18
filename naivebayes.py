@@ -17,11 +17,12 @@ import tensorflow as tf
 
 
 download   = False #download dataset (just pull from github, don't need to run this)
+run_part1  = True  #prints each word and its frequency
 run_part2  = False #prints naive bayes classification performance
 tuning_mk  = False #tuning m and k for naive bayes
 run_part3  = False #printing 10 most important words for negative and positive reviews
 run_part4  = False  #logistic regression via. tensor flow
-tuning_lam = True
+tuning_lam = False
 
 def download_dataset(neg_index, pos_index, set_type,size): 
     '''param index: list of random, unique numbers
@@ -74,6 +75,17 @@ def download_dataset(neg_index, pos_index, set_type,size):
             f.close()
     return
     
+def merge(d1, d2, merge_fn=lambda x,y:y):  
+    #merge two dictionaries together
+
+    result = dict(d1)
+    for k,v in d2.items():
+        if k in result:
+            result[k] = merge_fn(result[k], v)
+        else:
+            result[k] = v
+    return result
+     
 def generate_dict(path):
     '''param path is the location of the training set
             e.g 'training_set'
@@ -420,7 +432,25 @@ if download == True:
     download_dataset(neg_index[900:], pos_index[900:], "\\validation_set", 200) 
     print("Please wait while the validation set set is being processed...")
 
-
+if run_part1 == True:
+    
+    #combine all the dictionaries together, computing word frequency
+    dicts1 = generate_dict('training_set')
+    dicts2 = generate_dict('test_set')
+    dicts3 = generate_dict('validation_set')
+    
+    neg_dict = merge(dicts1[0], dicts2[0], lambda x,y: x+y)
+    neg_dict = merge(neg_dict , dicts3[0], lambda x,y: x+y)
+    
+    pos_dict = merge(dicts1[1], dicts2[1], lambda x,y: x+y)
+    pos_dict = merge(pos_dict , dicts3[1], lambda x,y: x+y)
+    
+    
+    words = ['annoying', 'terrible', 'stupid', 'wasted']
+    for word in words:
+        print("Occurrence of " + word + " in the negative dataset is " + str(neg_dict[word]))
+    for word in words:
+        print("Occurrence of " + word + " in the positive dataset is " + str(pos_dict[word]))
 
 if run_part2 == True:
     '''unnormalized settings''' #normalizing actaully made performance worse...
@@ -457,7 +487,7 @@ if run_part4 == True:
     neg_dict, pos_dict = generate_dict('training_set')
     num_words = get_numwords(neg_dict, pos_dict)[0]
     
-    lam = 0.01
+    lam = 1
     logistic_regression(neg_dict, pos_dict, num_words, lam)
 
 if tuning_lam:
