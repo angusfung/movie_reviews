@@ -17,8 +17,8 @@ import tensorflow as tf
 
 
 download   = False #download dataset (just pull from github, don't need to run this)
-run_part1  = True  #prints each word and its frequency
-run_part2  = False #prints naive bayes classification performance
+run_part1  = False #prints each word and its frequency
+run_part2  = True #prints naive bayes classification performance
 tuning_mk  = False #tuning m and k for naive bayes
 run_part3  = False #printing 10 most important words for negative and positive reviews
 run_part4  = False  #logistic regression via. tensor flow
@@ -127,22 +127,26 @@ def generate_dict_normalized(path): #same as above, but normalizing by length (P
     #go through the negative review first
     for review in os.listdir(path + "/neg"):
         with open(os.getcwd()+"/"+path+"/neg/"+review) as f:
-            unique_words = set(f.read().split())
+            words = f.read().split()
+            length = len(words)
+            unique_words = set(words)
             for word in unique_words:
                 if not neg_dict.get(word): #check if the word is in dictionary
-                    neg_dict[word] = 1 / len(unique_words)
+                    neg_dict[word] = 1 / length
                 else: #the word is in dictionary
-                    neg_dict[word] += 1 / len(unique_words)
+                    neg_dict[word] += 1 / length
                     
     #go through the positive reviews
     for review in os.listdir(path + "/pos"):
         with  open(os.getcwd()+"/"+path+"/pos/"+review)as f:
-            unique_words = set(f.read().split())
+            words = f.read().split()
+            length = len(words)
+            unique_words = set(words)
             for word in unique_words:
                 if not pos_dict.get(word): #check if the word is in dictionary
-                    pos_dict[word] = 1 / len(unique_words)
+                    pos_dict[word] = 1 / length
                 else: #the word is in dictionary
-                    pos_dict[word] += 1 / len(unique_words)
+                    pos_dict[word] += 1 / length
     return neg_dict, pos_dict
     
 def calculate_prob(dict, m, k):
@@ -153,7 +157,7 @@ def calculate_prob(dict, m, k):
     
     return dict
 
-def classify(path, neg_dict, pos_dict):
+def classify(path, neg_dict, pos_dict, size):
     '''param path is the location of the training set
             e.g 'testing set'
        param dict {neg, pos} have key = word, value = probability
@@ -200,21 +204,24 @@ def classify(path, neg_dict, pos_dict):
             if pos_prob > neg_prob:
                 pos_score += 1 #since we know the review must be positive
     
-    return neg_score / 100, pos_score / 100
+    return neg_score / (size/2), pos_score / (size/2)
 
 def max_validation():
     '''loops through all possible values of m, k and prints out the scores
        change the range values in the for loop and incremental size
     '''
-    #dicts = generate_dict('training_set')
-    dicts = generate_dict_normalized('training_set')
-    for m in range(50, 75, 2):
-        for k in range(50, 75,2):
+    dicts = generate_dict('training_set')
+    #dicts = generate_dict_normalized('training_set')
+    for m in range(30, 50, 2):
+        for k in range(30, 50,2):
             neg_dict = calculate_prob(dicts[0],m,k)
             pos_dict = calculate_prob(dicts[1],m,k)
-            score = classify('validation_set', neg_dict, pos_dict)
-            score1 = classify('test_set', neg_dict, pos_dict)
-            print("validation set: " + "m = " + str(m) + " k = " + str(k), score, "test set: ", "m = " + str(m) + " k = " + str(k), score1)
+            score = classify('validation_set', neg_dict, pos_dict, 200)
+            score1 = classify('test_set', neg_dict, pos_dict, 200)
+            score2 = classify('training_set', neg_dict, pos_dict, 1600)
+            print("validation set: " + "m = " + str(m) + " k = " + str(k), score)
+            print("test set: " + "m = " + str(m) + " k = " + str(k), score1)
+            print("training set: " + "m = " + str(m) + " k = " + str(k), score2)
 
 def most_predictive(neg_dict, pos_dict):
     '''param dict {pos, neg} which is a dictionary containing (word, probability)
@@ -457,20 +464,28 @@ if run_part1 == True:
         print("Occurrence of " + word + " in the negative dataset is " + str(neg_dict[word]))
     for word in words:
         print("Occurrence of " + word + " in the positive dataset is " + str(pos_dict[word]))
+    print("=======================================================")
+    words = ['hilarious', 'terrific']
+    for word in words:
+        print("Occurrence of " + word + " in the negative dataset is " + str(neg_dict[word]))
+    for word in words:
+        print("Occurrence of " + word + " in the positive dataset is " + str(pos_dict[word]))
 if run_part2 == True:
     '''unnormalized settings''' #normalizing actaully made performance worse...
     dicts = generate_dict('training_set')
-    m = 50
-    k = 50
+    m = 31
+    k = 30
     '''normalized settings'''
     # dicts = generate_dict_normalized('training_set')
     # m = 25
     # k = 25
     neg_dict = calculate_prob(dicts[0], m, k)
     pos_dict = calculate_prob(dicts[1], m, k)
-    score = classify('validation_set', neg_dict, pos_dict)
-    score = classify('test_set', neg_dict, pos_dict)
-    print(score)
+    score1 = classify('validation_set', neg_dict, pos_dict, 200)
+    score2 = classify('test_set', neg_dict, pos_dict, 200)
+    score3 = classify('training_set', neg_dict, pos_dict, 1600)
+    print(score1, score2, score3)
+
 
 if tuning_mk == True:
     max_validation()
