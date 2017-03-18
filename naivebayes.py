@@ -127,26 +127,28 @@ def generate_dict_normalized(path): #same as above, but normalizing by length (P
     #go through the negative review first
     for review in os.listdir(path + "/neg"):
         with open(os.getcwd()+"/"+path+"/neg/"+review) as f:
-            words = f.read().split()
-            length = len(words)
-            unique_words = set(words)
+            #words = f.read().split()
+            #length = len(words)
+            #unique_words = set(words)
+            unique_words = set(f.read().split())
             for word in unique_words:
                 if not neg_dict.get(word): #check if the word is in dictionary
-                    neg_dict[word] = 1 / length
+                    neg_dict[word] = 1 / len(unique_words)
                 else: #the word is in dictionary
-                    neg_dict[word] += 1 / length
+                    neg_dict[word] += 1 / len(unique_words)
                     
     #go through the positive reviews
     for review in os.listdir(path + "/pos"):
         with  open(os.getcwd()+"/"+path+"/pos/"+review)as f:
-            words = f.read().split()
-            length = len(words)
-            unique_words = set(words)
+            #words = f.read().split()
+            #length = len(words)
+            #unique_words = set(words)
+            unique_words = set(f.read().split())
             for word in unique_words:
                 if not pos_dict.get(word): #check if the word is in dictionary
-                    pos_dict[word] = 1 / length
+                    pos_dict[word] = 1 / len(unique_words)
                 else: #the word is in dictionary
-                    pos_dict[word] += 1 / length
+                    pos_dict[word] += 1 / len(unique_words)
     return neg_dict, pos_dict
     
 def calculate_prob(dict, m, k):
@@ -210,21 +212,28 @@ def max_validation():
     '''loops through all possible values of m, k and prints out the scores
        change the range values in the for loop and incremental size
     '''
+    combined_score = 0
+    mk = 0
 
-    for m in np.arange(20,80,5):
-        for k in np.arange(20,80,5):
+    for m in np.arange(25,80,5):
+        for k in np.arange(25,80,5):
             dicts = generate_dict('training_set')
             #dicts = generate_dict_normalized('training_set')
             neg_dict = calculate_prob(dicts[0],m,k)
             pos_dict = calculate_prob(dicts[1],m,k)
             score = classify('validation_set', neg_dict, pos_dict, 200)
-            score1 = classify('test_set', neg_dict, pos_dict, 200)
+            #score1 = classify('test_set', neg_dict, pos_dict, 200)
             #score2 = classify('training_set', neg_dict, pos_dict, 1600)
+            if ((score[0] + score[1])/2) > combined_score:
+                combined_score = (score[0] + score[1])/2
+                mk = (m,k) 
             print("validation set: " + "m = " + str(m) + " k = " + str(k), score)
-            print("test set:       " + "m = " + str(m) + " k = " + str(k), score1)
+            '''can uncomment these lines, but running will be slower.
+            '''
+            #print("test set:       " + "m = " + str(m) + " k = " + str(k), score1)
+            #print("training set:   " + "m = " + str(m) + " k = " + str(k), score2)
             print("=====================================================")
-            #print("training set: " + "m = " + str(m) + " k = " + str(k), score2)
-
+    print(combined_score,mk)
 def most_predictive(neg_dict, pos_dict):
     '''param dict {pos, neg} which is a dictionary containing (word, probability)
        returns top 10 most common words
