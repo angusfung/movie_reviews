@@ -17,8 +17,8 @@ import tensorflow as tf
 
 
 download   = False #download dataset (just pull from github, don't need to run this)
-run_part1  = True  #prints each word and its frequency
-run_part2  = False #prints naive bayes classification performance
+run_part1  = False  #prints each word and its frequency
+run_part2  = True #prints naive bayes classification performance
 tuning_mk  = False #tuning m and k for naive bayes
 run_part3  = False #printing 10 most important words for negative and positive reviews
 run_part4  = False  #logistic regression via. tensor flow
@@ -35,15 +35,15 @@ def download_dataset(neg_index, pos_index, set_type,size):
     
     curr_directory = os.getcwd() #get current directory
     
-    if not os.path.exists(os.getcwd()+"\\training_set"): #make the folders if they don't exist
-        os.makedirs(os.getcwd()+"\\training_set\\neg")
-        os.makedirs(os.getcwd()+"\\training_set\\pos")
-    if not os.path.exists(os.getcwd()+"\\test_set"): 
-        os.makedirs(os.getcwd()+"\\test_set\\neg")
-        os.makedirs(os.getcwd()+"\\test_set\\pos")
-    if not os.path.exists(os.getcwd()+"\\validation_set"): 
-        os.makedirs(os.getcwd()+"\\validation_set\\neg")
-        os.makedirs(os.getcwd()+"\\validation_set\\pos")
+    if not os.path.exists(os.getcwd()+"/training_set"): #make the folders if they don't exist
+        os.makedirs(os.getcwd()+"/training_set/neg")
+        os.makedirs(os.getcwd()+"/training_set/pos")
+    if not os.path.exists(os.getcwd()+"/test_set"): 
+        os.makedirs(os.getcwd()+"/test_set/neg")
+        os.makedirs(os.getcwd()+"/test_set/pos")
+    if not os.path.exists(os.getcwd()+"/validation_set"): 
+        os.makedirs(os.getcwd()+"/validation_set/neg")
+        os.makedirs(os.getcwd()+"/validation_set/pos")
     
     #generate the training set, saving 200 images for testing set, 200 for training set
     for j in range(2):
@@ -51,21 +51,21 @@ def download_dataset(neg_index, pos_index, set_type,size):
             if j==0:  #if j==0, neg reviews; else, pos reviews
                 rand_num = neg_index[i]
                 #print(i, rand_num)
-                file_source = os.getcwd()+"\\review_polarity\\txt_sentoken\\neg\\"
+                file_source = os.getcwd()+"/review_polarity/txt_sentoken/neg/"
                 image_name = os.listdir(file_source)[rand_num]
                 file_source = file_source + image_name
-                file_destination = os.getcwd() + set_type + "\\neg"
+                file_destination = os.getcwd() + set_type + "/neg"
             else:
                 rand_num = pos_index[i]
                 #print(i, rand_num)
-                file_source = os.getcwd()+"\\review_polarity\\txt_sentoken\\pos\\"
+                file_source = os.getcwd()+"/review_polarity/txt_sentoken/pos/"
                 image_name = os.listdir(file_source)[rand_num]
                 file_source = file_source + image_name
-                file_destination = os.getcwd() + set_type + "\\pos"
+                file_destination = os.getcwd() + set_type + "/pos"
             shutil.copy2(file_source, file_destination)
             
             #process the text file
-            f = open(file_destination + "\\"+ image_name, "r+")
+            f = open(file_destination + "/"+ image_name, "r+")
             data = f.read()
             exclude = set(string.punctuation)
             file_text = ''.join(ch for ch in data if ch not in exclude).lower()
@@ -95,8 +95,8 @@ def generate_dict(path):
     neg_dict = {}
     
     #go through the negative review first
-    for review in os.listdir(path + "\\neg"):
-        with open(os.getcwd()+"\\"+path+"\\neg\\"+review) as f:
+    for review in os.listdir(path + "/neg"):
+        with open(os.getcwd()+"/"+path+"/neg/"+review) as f:
             unique_words = set(f.read().split())
             for word in unique_words:
                 if not neg_dict.get(word): #check if the word is in dictionary
@@ -105,8 +105,8 @@ def generate_dict(path):
                     neg_dict[word] += 1
                     
     #go through the positive reviews
-    for review in os.listdir(path + "\\pos"):
-        with  open(os.getcwd()+"\\"+path+"\\pos\\"+review)as f:
+    for review in os.listdir(path + "/pos"):
+        with  open(os.getcwd()+"/"+path+"/pos/"+review)as f:
             unique_words = set(f.read().split())
             for word in unique_words:
                 if not pos_dict.get(word): #check if the word is in dictionary
@@ -125,8 +125,8 @@ def generate_dict_normalized(path): #same as above, but normalizing by length (P
     neg_dict = {}
     
     #go through the negative review first
-    for review in os.listdir(path + "\\neg"):
-        with open(os.getcwd()+"\\"+path+"\\neg\\"+review) as f:
+    for review in os.listdir(path + "/neg"):
+        with open(os.getcwd()+"/"+path+"/neg/"+review) as f:
             unique_words = set(f.read().split())
             for word in unique_words:
                 if not neg_dict.get(word): #check if the word is in dictionary
@@ -135,8 +135,8 @@ def generate_dict_normalized(path): #same as above, but normalizing by length (P
                     neg_dict[word] += 1 / len(unique_words)
                     
     #go through the positive reviews
-    for review in os.listdir(path + "\\pos"):
-        with  open(os.getcwd()+"\\"+path+"\\pos\\"+review)as f:
+    for review in os.listdir(path + "/pos"):
+        with  open(os.getcwd()+"/"+path+"/pos/"+review)as f:
             unique_words = set(f.read().split())
             for word in unique_words:
                 if not pos_dict.get(word): #check if the word is in dictionary
@@ -163,8 +163,8 @@ def classify(path, neg_dict, pos_dict):
     pos_score = 0
 
     #go through the negative review first
-    for review in os.listdir(path + "\\neg"):
-        with open(os.getcwd()+"\\"+path+"\\neg\\"+review) as f:
+    for review in os.listdir(path + "/neg"):
+        with open(os.getcwd()+"/"+path+"/neg/"+review) as f:
             unique_words = set(f.read().split())
             neg_sum = 0 #compute P(ai|negative)
             pos_sum = 0 #compute P(ai|positive) [then take the largest]
@@ -182,8 +182,8 @@ def classify(path, neg_dict, pos_dict):
                 neg_score += 1 #since we know the review must be negative
                 
     #go through the positive review 
-    for review in os.listdir(path + "\\pos"):
-        with open(os.getcwd()+"\\"+path+"\\pos\\"+review) as f:
+    for review in os.listdir(path + "/pos"):
+        with open(os.getcwd()+"/"+path+"/pos/"+review) as f:
             unique_words = set(f.read().split())
             neg_sum = 0 #compute P(ai|negative)
             pos_sum = 0 #compute P(ai|positive) [then take the largest]
@@ -261,8 +261,8 @@ def get_train(neg_dict, pos_dict):
     
     path = 'training_set'
     
-    for review in os.listdir(path + "\\neg"): #[1,0] corresponds to a negative review
-        with open(os.getcwd()+"\\"+path+"\\neg\\"+review) as f:
+    for review in os.listdir(path + "/neg"): #[1,0] corresponds to a negative review
+        with open(os.getcwd()+"/"+path+"/neg/"+review) as f:
             unique_words = set(f.read().split())
             i=0
             for word in combined_list:
@@ -273,8 +273,8 @@ def get_train(neg_dict, pos_dict):
         cur_row += 1
         #print(cur_row)
         
-    for review in os.listdir(path + "\\pos"): #[0,1] corresponds to a positive review
-        with open(os.getcwd()+"\\"+path+"\\pos\\"+review) as f:
+    for review in os.listdir(path + "/pos"): #[0,1] corresponds to a positive review
+        with open(os.getcwd()+"/"+path+"/pos/"+review) as f:
             unique_words = set(f.read().split())
             i=0
             for word in combined_list:
@@ -299,8 +299,8 @@ def get_test(neg_dict, pos_dict):
     
     path = 'test_set'
     
-    for review in os.listdir(path + "\\neg"): 
-        with open(os.getcwd()+"\\"+path+"\\neg\\"+review) as f:
+    for review in os.listdir(path + "/neg"): 
+        with open(os.getcwd()+"/"+path+"/neg/"+review) as f:
             unique_words = set(f.read().split())
             i=0
             for word in combined_list:
@@ -311,8 +311,8 @@ def get_test(neg_dict, pos_dict):
         cur_row += 1
         #print(cur_row)
         
-    for review in os.listdir(path + "\\pos"): 
-        with open(os.getcwd()+"\\"+path+"\\pos\\"+review) as f:
+    for review in os.listdir(path + "/pos"): 
+        with open(os.getcwd()+"/"+path+"/pos/"+review) as f:
             unique_words = set(f.read().split())
             i=0
             for word in combined_list:
@@ -336,8 +336,8 @@ def get_validation(neg_dict, pos_dict):
     
     path = 'validation_set'
     
-    for review in os.listdir(path + "\\neg"): 
-        with open(os.getcwd()+"\\"+path+"\\neg\\"+review) as f:
+    for review in os.listdir(path + "/neg"): 
+        with open(os.getcwd()+"/"+path+"/neg/"+review) as f:
             unique_words = set(f.read().split())
             i=0
             for word in combined_list:
@@ -348,8 +348,8 @@ def get_validation(neg_dict, pos_dict):
         cur_row += 1
         #print(cur_row)
         
-    for review in os.listdir(path + "\\pos"): 
-        with open(os.getcwd()+"\\"+path+"\\pos\\"+review) as f:
+    for review in os.listdir(path + "/pos"): 
+        with open(os.getcwd()+"/"+path+"/pos/"+review) as f:
             unique_words = set(f.read().split())
             i=0
             for word in combined_list:
@@ -423,13 +423,13 @@ if download == True:
     pos_index = random.choice(range(1000), 1000, replace=False) #i.e 0-size
     
     #generate training set (size = 1600)
-    download_dataset(neg_index, pos_index, "\\training_set",1600)
+    download_dataset(neg_index, pos_index, "/training_set",1600)
     print("Please wait while the training set is being processed...")
     #generate the testing set (size = 200)
-    download_dataset(neg_index[800:],pos_index[800:], "\\test_set", 200)
+    download_dataset(neg_index[800:],pos_index[800:], "/test_set", 200)
     print("Please wait while the testing set is being processed...")
     #generate the validation set (size = 200)
-    download_dataset(neg_index[900:], pos_index[900:], "\\validation_set", 200) 
+    download_dataset(neg_index[900:], pos_index[900:], "/validation_set", 200) 
     print("Please wait while the validation set set is being processed...")
 
 if run_part1 == True:
