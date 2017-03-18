@@ -380,7 +380,7 @@ def logistic_regression(neg_dict, pos_dict, num_words, lam):
     # Run the TF, collect accuracies in a separate array
     test_results = []
     validation_results = []
-    for i in range(1000):
+    for i in range(500):
     #print i  
         sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
         
@@ -399,7 +399,7 @@ def logistic_regression(neg_dict, pos_dict, num_words, lam):
             print(sess.run(reg_NLL, feed_dict = {x: batch_xs, y_: batch_ys}))
             test_results.append(test_accuracy)
             validation_results.append(validation_accuracy)
-    return np.argmax(test_results), np.argmax(validation_results)
+    return max(test_results), max(validation_results)
 
     
 
@@ -471,10 +471,12 @@ if tuning_lam:
     
     for lam in [0,0.0001,0.0003,0.001,0.003,0.01,0.03,0.1,0.3,1]:
         results = logistic_regression(neg_dict, pos_dict, num_words, lam)
+        print(results)
         highest_test.append(results[0])
         highest_validation.append(results[1])
     
     print(highest_test)
     print(highest_validation)
         
-        
+    '''Output: [0.85500002, 0.83999997, 0.85500002, 0.85000002, 0.86500001, 0.86000001, 0.85000002, 0.86000001, 0.86500001, 0.875]
+               [0.83999997, 0.83999997, 0.82499999, 0.83999997, 0.81999999, 0.81, 0.85000002, 0.82499999, 0.83499998, 0.85000002]'''    
