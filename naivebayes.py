@@ -17,8 +17,8 @@ import tensorflow as tf
 
 
 download   = False #download dataset (just pull from github, don't need to run this)
-run_part1  = False  #prints each word and its frequency
-run_part2  = True #prints naive bayes classification performance
+run_part1  = True  #prints each word and its frequency
+run_part2  = False #prints naive bayes classification performance
 tuning_mk  = False #tuning m and k for naive bayes
 run_part3  = False #printing 10 most important words for negative and positive reviews
 run_part4  = False  #logistic regression via. tensor flow
@@ -445,13 +445,18 @@ if run_part1 == True:
     pos_dict = merge(dicts1[1], dicts2[1], lambda x,y: x+y)
     pos_dict = merge(pos_dict , dicts3[1], lambda x,y: x+y)
     
-    
+    print("=======================================================")
     words = ['annoying', 'terrible', 'stupid', 'wasted']
     for word in words:
         print("Occurrence of " + word + " in the negative dataset is " + str(neg_dict[word]))
     for word in words:
         print("Occurrence of " + word + " in the positive dataset is " + str(pos_dict[word]))
-
+    print("=======================================================")
+    words = ['like', 'liked', 'enjoy', 'enjoyed', 'love', 'loved', 'good']
+    for word in words:
+        print("Occurrence of " + word + " in the negative dataset is " + str(neg_dict[word]))
+    for word in words:
+        print("Occurrence of " + word + " in the positive dataset is " + str(pos_dict[word]))
 if run_part2 == True:
     '''unnormalized settings''' #normalizing actaully made performance worse...
     dicts = generate_dict('training_set')
