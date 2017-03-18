@@ -18,8 +18,8 @@ import tensorflow as tf
 
 download   = False #download dataset (just pull from github, don't need to run this)
 run_part1  = False #prints each word and its frequency
-run_part2  = True #prints naive bayes classification performance
-tuning_mk  = False #tuning m and k for naive bayes
+run_part2  = False #prints naive bayes classification performance
+tuning_mk  = True #tuning m and k for naive bayes
 run_part3  = False #printing 10 most important words for negative and positive reviews
 run_part4  = False  #logistic regression via. tensor flow
 tuning_lam = False
@@ -210,18 +210,20 @@ def max_validation():
     '''loops through all possible values of m, k and prints out the scores
        change the range values in the for loop and incremental size
     '''
-    dicts = generate_dict('training_set')
-    #dicts = generate_dict_normalized('training_set')
-    for m in range(30, 50, 2):
-        for k in range(30, 50,2):
+
+    for m in np.arange(20,80,5):
+        for k in np.arange(20,80,5):
+            dicts = generate_dict('training_set')
+            #dicts = generate_dict_normalized('training_set')
             neg_dict = calculate_prob(dicts[0],m,k)
             pos_dict = calculate_prob(dicts[1],m,k)
             score = classify('validation_set', neg_dict, pos_dict, 200)
             score1 = classify('test_set', neg_dict, pos_dict, 200)
-            score2 = classify('training_set', neg_dict, pos_dict, 1600)
+            #score2 = classify('training_set', neg_dict, pos_dict, 1600)
             print("validation set: " + "m = " + str(m) + " k = " + str(k), score)
-            print("test set: " + "m = " + str(m) + " k = " + str(k), score1)
-            print("training set: " + "m = " + str(m) + " k = " + str(k), score2)
+            print("test set:       " + "m = " + str(m) + " k = " + str(k), score1)
+            print("=====================================================")
+            #print("training set: " + "m = " + str(m) + " k = " + str(k), score2)
 
 def most_predictive(neg_dict, pos_dict):
     '''param dict {pos, neg} which is a dictionary containing (word, probability)
@@ -473,7 +475,7 @@ if run_part1 == True:
 if run_part2 == True:
     '''unnormalized settings''' #normalizing actaully made performance worse...
     dicts = generate_dict('training_set')
-    m = 31
+    m = 30
     k = 30
     '''normalized settings'''
     # dicts = generate_dict_normalized('training_set')
