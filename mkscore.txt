@@ -1,281 +1,440 @@
-validation set: m = 25 k = 25 (0.32, 0.78) test set:  m = 25 k = 25 (0.36, 0.82)
-validation set: m = 25 k = 27 (0.44, 0.23) test set:  m = 25 k = 27 (0.4, 0.28)
-validation set: m = 25 k = 29 (0.44, 0.23) test set:  m = 25 k = 29 (0.4, 0.28)
-validation set: m = 25 k = 31 (0.44, 0.23) test set:  m = 25 k = 31 (0.4, 0.28)
-validation set: m = 25 k = 33 (0.44, 0.23) test set:  m = 25 k = 33 (0.4, 0.28)
-validation set: m = 25 k = 35 (0.57, 0.8) test set:  m = 25 k = 35 (0.58, 0.77)
-validation set: m = 25 k = 37 (0.53, 0.77) test set:  m = 25 k = 37 (0.52, 0.72)
-validation set: m = 25 k = 39 (0.53, 0.77) test set:  m = 25 k = 39 (0.52, 0.72)
-validation set: m = 25 k = 41 (0.53, 0.77) test set:  m = 25 k = 41 (0.52, 0.72)
-validation set: m = 25 k = 43 (0.53, 0.77) test set:  m = 25 k = 43 (0.52, 0.72)
-validation set: m = 25 k = 45 (0.53, 0.77) test set:  m = 25 k = 45 (0.52, 0.72)
-validation set: m = 25 k = 47 (0.53, 0.77) test set:  m = 25 k = 47 (0.52, 0.72)
-validation set: m = 25 k = 49 (0.53, 0.77) test set:  m = 25 k = 49 (0.52, 0.72)
-validation set: m = 27 k = 25 (0.4, 0.18) test set:  m = 27 k = 25 (0.34, 0.22)
-validation set: m = 27 k = 27 (0.4, 0.18) test set:  m = 27 k = 27 (0.34, 0.22)
-validation set: m = 27 k = 29 (0.4, 0.18) test set:  m = 27 k = 29 (0.34, 0.22)
-validation set: m = 27 k = 31 (0.53, 0.77) test set:  m = 27 k = 31 (0.52, 0.72)
-validation set: m = 27 k = 33 (0.53, 0.77) test set:  m = 27 k = 33 (0.52, 0.72)
-validation set: m = 27 k = 35 (0.53, 0.77) test set:  m = 27 k = 35 (0.52, 0.72)
-validation set: m = 27 k = 37 (0.53, 0.77) test set:  m = 27 k = 37 (0.52, 0.72)
-validation set: m = 27 k = 39 (0.53, 0.77) test set:  m = 27 k = 39 (0.52, 0.72)
-validation set: m = 27 k = 41 (0.53, 0.77) test set:  m = 27 k = 41 (0.52, 0.72)
-validation set: m = 27 k = 43 (0.53, 0.77) test set:  m = 27 k = 43 (0.52, 0.72)
-validation set: m = 27 k = 45 (0.53, 0.77) test set:  m = 27 k = 45 (0.52, 0.72)
-validation set: m = 27 k = 47 (0.53, 0.77) test set:  m = 27 k = 47 (0.52, 0.72)
-validation set: m = 27 k = 49 (0.53, 0.77) test set:  m = 27 k = 49 (0.52, 0.72)
-validation set: m = 29 k = 25 (0.4, 0.18) test set:  m = 29 k = 25 (0.34, 0.22)
-validation set: m = 29 k = 27 (0.4, 0.18) test set:  m = 29 k = 27 (0.34, 0.22)
-validation set: m = 29 k = 29 (0.53, 0.77) test set:  m = 29 k = 29 (0.52, 0.72)
-validation set: m = 29 k = 31 (0.53, 0.77) test set:  m = 29 k = 31 (0.52, 0.72)
-validation set: m = 29 k = 33 (0.53, 0.77) test set:  m = 29 k = 33 (0.52, 0.72)
-validation set: m = 29 k = 35 (0.53, 0.77) test set:  m = 29 k = 35 (0.52, 0.72)
-validation set: m = 29 k = 37 (0.53, 0.77) test set:  m = 29 k = 37 (0.52, 0.72)
-validation set: m = 29 k = 39 (0.53, 0.77) test set:  m = 29 k = 39 (0.52, 0.72)
-validation set: m = 29 k = 41 (0.53, 0.77) test set:  m = 29 k = 41 (0.52, 0.72)
-validation set: m = 29 k = 43 (0.53, 0.77) test set:  m = 29 k = 43 (0.52, 0.72)
-validation set: m = 29 k = 45 (0.53, 0.77) test set:  m = 29 k = 45 (0.52, 0.72)
-validation set: m = 29 k = 47 (0.53, 0.77) test set:  m = 29 k = 47 (0.52, 0.72)
-validation set: m = 29 k = 49 (0.53, 0.77) test set:  m = 29 k = 49 (0.52, 0.72)
-validation set: m = 31 k = 25 (0.4, 0.18) test set:  m = 31 k = 25 (0.34, 0.22)
-validation set: m = 31 k = 27 (0.53, 0.77) test set:  m = 31 k = 27 (0.52, 0.72)
-validation set: m = 31 k = 29 (0.53, 0.77) test set:  m = 31 k = 29 (0.52, 0.72)
-validation set: m = 31 k = 31 (0.53, 0.77) test set:  m = 31 k = 31 (0.52, 0.72)
-validation set: m = 31 k = 33 (0.53, 0.77) test set:  m = 31 k = 33 (0.52, 0.72)
-validation set: m = 31 k = 35 (0.53, 0.77) test set:  m = 31 k = 35 (0.52, 0.72)
-validation set: m = 31 k = 37 (0.53, 0.77) test set:  m = 31 k = 37 (0.52, 0.72)
-validation set: m = 31 k = 39 (0.53, 0.77) test set:  m = 31 k = 39 (0.52, 0.72)
-validation set: m = 31 k = 41 (0.53, 0.77) test set:  m = 31 k = 41 (0.52, 0.72)
-validation set: m = 31 k = 43 (0.53, 0.77) test set:  m = 31 k = 43 (0.52, 0.72)
-validation set: m = 31 k = 45 (0.53, 0.77) test set:  m = 31 k = 45 (0.52, 0.72)
-validation set: m = 31 k = 47 (0.53, 0.77) test set:  m = 31 k = 47 (0.52, 0.72)
-validation set: m = 31 k = 49 (0.53, 0.77) test set:  m = 31 k = 49 (0.52, 0.72)
-validation set: m = 33 k = 25 (0.53, 0.77) test set:  m = 33 k = 25 (0.52, 0.72)
-validation set: m = 33 k = 27 (0.53, 0.77) test set:  m = 33 k = 27 (0.52, 0.72)
-validation set: m = 33 k = 29 (0.53, 0.77) test set:  m = 33 k = 29 (0.52, 0.72)
-validation set: m = 33 k = 31 (0.53, 0.77) test set:  m = 33 k = 31 (0.52, 0.72)
-validation set: m = 33 k = 33 (0.53, 0.77) test set:  m = 33 k = 33 (0.52, 0.72)
-validation set: m = 33 k = 35 (0.53, 0.77) test set:  m = 33 k = 35 (0.52, 0.72)
-validation set: m = 33 k = 37 (0.53, 0.77) test set:  m = 33 k = 37 (0.52, 0.72)
-validation set: m = 33 k = 39 (0.53, 0.77) test set:  m = 33 k = 39 (0.52, 0.72)
-validation set: m = 33 k = 41 (0.53, 0.77) test set:  m = 33 k = 41 (0.52, 0.72)
-validation set: m = 33 k = 43 (0.53, 0.77) test set:  m = 33 k = 43 (0.52, 0.72)
-validation set: m = 33 k = 45 (0.53, 0.77) test set:  m = 33 k = 45 (0.52, 0.72)
-validation set: m = 33 k = 47 (0.53, 0.77) test set:  m = 33 k = 47 (0.52, 0.72)
-validation set: m = 33 k = 49 (0.53, 0.77) test set:  m = 33 k = 49 (0.52, 0.72)
-validation set: m = 35 k = 25 (0.53, 0.77) test set:  m = 35 k = 25 (0.52, 0.72)
-validation set: m = 35 k = 27 (0.53, 0.77) test set:  m = 35 k = 27 (0.52, 0.72)
-validation set: m = 35 k = 29 (0.53, 0.77) test set:  m = 35 k = 29 (0.52, 0.72)
-validation set: m = 35 k = 31 (0.53, 0.77) test set:  m = 35 k = 31 (0.52, 0.72)
-validation set: m = 35 k = 33 (0.53, 0.77) test set:  m = 35 k = 33 (0.52, 0.72)
-validation set: m = 35 k = 35 (0.53, 0.77) test set:  m = 35 k = 35 (0.52, 0.72)
-validation set: m = 35 k = 37 (0.53, 0.77) test set:  m = 35 k = 37 (0.52, 0.72)
-validation set: m = 35 k = 39 (0.53, 0.77) test set:  m = 35 k = 39 (0.52, 0.72)
-validation set: m = 35 k = 41 (0.53, 0.77) test set:  m = 35 k = 41 (0.52, 0.72)
-validation set: m = 35 k = 43 (0.53, 0.77) test set:  m = 35 k = 43 (0.52, 0.72)
-validation set: m = 35 k = 45 (0.53, 0.77) test set:  m = 35 k = 45 (0.52, 0.72)
-validation set: m = 35 k = 47 (0.53, 0.77) test set:  m = 35 k = 47 (0.52, 0.72)
-validation set: m = 35 k = 49 (0.53, 0.77) test set:  m = 35 k = 49 (0.52, 0.72)
-validation set: m = 37 k = 25 (0.53, 0.77) test set:  m = 37 k = 25 (0.52, 0.72)
-validation set: m = 37 k = 27 (0.53, 0.77) test set:  m = 37 k = 27 (0.52, 0.72)
-validation set: m = 37 k = 29 (0.53, 0.77) test set:  m = 37 k = 29 (0.52, 0.72)
-validation set: m = 37 k = 31 (0.53, 0.77) test set:  m = 37 k = 31 (0.52, 0.72)
-validation set: m = 37 k = 33 (0.53, 0.77) test set:  m = 37 k = 33 (0.52, 0.72)
-validation set: m = 37 k = 35 (0.53, 0.77) test set:  m = 37 k = 35 (0.52, 0.72)
-validation set: m = 37 k = 37 (0.53, 0.77) test set:  m = 37 k = 37 (0.52, 0.72)
-validation set: m = 37 k = 39 (0.53, 0.77) test set:  m = 37 k = 39 (0.52, 0.72)
-validation set: m = 37 k = 41 (0.53, 0.77) test set:  m = 37 k = 41 (0.52, 0.72)
-validation set: m = 37 k = 43 (0.53, 0.77) test set:  m = 37 k = 43 (0.52, 0.72)
-validation set: m = 37 k = 45 (0.53, 0.77) test set:  m = 37 k = 45 (0.52, 0.72)
-validation set: m = 37 k = 47 (0.53, 0.77) test set:  m = 37 k = 47 (0.52, 0.72)
-validation set: m = 37 k = 49 (0.53, 0.77) test set:  m = 37 k = 49 (0.52, 0.72)
-validation set: m = 39 k = 25 (0.53, 0.77) test set:  m = 39 k = 25 (0.52, 0.72)
-validation set: m = 39 k = 27 (0.53, 0.77) test set:  m = 39 k = 27 (0.52, 0.72)
-validation set: m = 39 k = 29 (0.53, 0.77) test set:  m = 39 k = 29 (0.52, 0.72)
-validation set: m = 39 k = 31 (0.53, 0.77) test set:  m = 39 k = 31 (0.52, 0.72)
-validation set: m = 39 k = 33 (0.53, 0.77) test set:  m = 39 k = 33 (0.52, 0.72)
-validation set: m = 39 k = 35 (0.53, 0.77) test set:  m = 39 k = 35 (0.52, 0.72)
-validation set: m = 39 k = 37 (0.53, 0.77) test set:  m = 39 k = 37 (0.52, 0.72)
-validation set: m = 39 k = 39 (0.53, 0.77) test set:  m = 39 k = 39 (0.52, 0.72)
-validation set: m = 39 k = 41 (0.53, 0.77) test set:  m = 39 k = 41 (0.52, 0.72)
-validation set: m = 39 k = 43 (0.53, 0.77) test set:  m = 39 k = 43 (0.52, 0.72)
-validation set: m = 39 k = 45 (0.53, 0.77) test set:  m = 39 k = 45 (0.52, 0.72)
-validation set: m = 39 k = 47 (0.53, 0.77) test set:  m = 39 k = 47 (0.52, 0.72)
-validation set: m = 39 k = 49 (0.53, 0.77) test set:  m = 39 k = 49 (0.52, 0.72)
-validation set: m = 41 k = 25 (0.53, 0.77) test set:  m = 41 k = 25 (0.52, 0.72)
-validation set: m = 41 k = 27 (0.53, 0.77) test set:  m = 41 k = 27 (0.52, 0.72)
-validation set: m = 41 k = 29 (0.53, 0.77) test set:  m = 41 k = 29 (0.52, 0.72)
-validation set: m = 41 k = 31 (0.53, 0.77) test set:  m = 41 k = 31 (0.52, 0.72)
-validation set: m = 41 k = 33 (0.53, 0.77) test set:  m = 41 k = 33 (0.52, 0.72)
-validation set: m = 41 k = 35 (0.53, 0.77) test set:  m = 41 k = 35 (0.52, 0.72)
-validation set: m = 41 k = 37 (0.53, 0.77) test set:  m = 41 k = 37 (0.52, 0.72)
-validation set: m = 41 k = 39 (0.53, 0.77) test set:  m = 41 k = 39 (0.52, 0.72)
-validation set: m = 41 k = 41 (0.53, 0.77) test set:  m = 41 k = 41 (0.52, 0.72)
-validation set: m = 41 k = 43 (0.53, 0.77) test set:  m = 41 k = 43 (0.52, 0.72)
-validation set: m = 41 k = 45 (0.53, 0.77) test set:  m = 41 k = 45 (0.52, 0.72)
-validation set: m = 41 k = 47 (0.53, 0.77) test set:  m = 41 k = 47 (0.52, 0.72)
-validation set: m = 41 k = 49 (0.53, 0.77) test set:  m = 41 k = 49 (0.52, 0.72)
-validation set: m = 43 k = 25 (0.53, 0.77) test set:  m = 43 k = 25 (0.52, 0.72)
-validation set: m = 43 k = 27 (0.53, 0.77) test set:  m = 43 k = 27 (0.52, 0.72)
-validation set: m = 43 k = 29 (0.53, 0.77) test set:  m = 43 k = 29 (0.52, 0.72)
-validation set: m = 43 k = 31 (0.53, 0.77) test set:  m = 43 k = 31 (0.52, 0.72)
-validation set: m = 43 k = 33 (0.53, 0.77) test set:  m = 43 k = 33 (0.52, 0.72)
-validation set: m = 43 k = 35 (0.53, 0.77) test set:  m = 43 k = 35 (0.52, 0.72)
-validation set: m = 43 k = 37 (0.53, 0.77) test set:  m = 43 k = 37 (0.52, 0.72)
-validation set: m = 43 k = 39 (0.53, 0.77) test set:  m = 43 k = 39 (0.52, 0.72)
-validation set: m = 43 k = 41 (0.53, 0.77) test set:  m = 43 k = 41 (0.52, 0.72)
-validation set: m = 43 k = 43 (0.53, 0.77) test set:  m = 43 k = 43 (0.52, 0.72)
-validation set: m = 43 k = 45 (0.53, 0.77) test set:  m = 43 k = 45 (0.52, 0.72)
-validation set: m = 43 k = 47 (0.53, 0.77) test set:  m = 43 k = 47 (0.52, 0.72)
-validation set: m = 43 k = 49 (0.53, 0.77) test set:  m = 43 k = 49 (0.52, 0.72)
-validation set: m = 45 k = 25 (0.53, 0.77) test set:  m = 45 k = 25 (0.52, 0.72)
-validation set: m = 45 k = 27 (0.53, 0.77) test set:  m = 45 k = 27 (0.52, 0.72)
-validation set: m = 45 k = 29 (0.53, 0.77) test set:  m = 45 k = 29 (0.52, 0.72)
-validation set: m = 45 k = 31 (0.53, 0.77) test set:  m = 45 k = 31 (0.52, 0.72)
-validation set: m = 45 k = 33 (0.53, 0.77) test set:  m = 45 k = 33 (0.52, 0.72)
-validation set: m = 45 k = 35 (0.53, 0.77) test set:  m = 45 k = 35 (0.52, 0.72)
-validation set: m = 45 k = 37 (0.53, 0.77) test set:  m = 45 k = 37 (0.52, 0.72)
-validation set: m = 45 k = 39 (0.53, 0.77) test set:  m = 45 k = 39 (0.52, 0.72)
-validation set: m = 45 k = 41 (0.53, 0.77) test set:  m = 45 k = 41 (0.52, 0.72)
-validation set: m = 45 k = 43 (0.53, 0.77) test set:  m = 45 k = 43 (0.52, 0.72)
-validation set: m = 45 k = 45 (0.53, 0.77) test set:  m = 45 k = 45 (0.52, 0.72)
-validation set: m = 45 k = 47 (0.53, 0.77) test set:  m = 45 k = 47 (0.52, 0.72)
-validation set: m = 45 k = 49 (0.53, 0.77) test set:  m = 45 k = 49 (0.52, 0.72)
-validation set: m = 47 k = 25 (0.53, 0.77) test set:  m = 47 k = 25 (0.52, 0.72)
-validation set: m = 47 k = 27 (0.53, 0.77) test set:  m = 47 k = 27 (0.52, 0.72)
-validation set: m = 47 k = 29 (0.53, 0.77) test set:  m = 47 k = 29 (0.52, 0.72)
-validation set: m = 47 k = 31 (0.53, 0.77) test set:  m = 47 k = 31 (0.52, 0.72)
-validation set: m = 47 k = 33 (0.53, 0.77) test set:  m = 47 k = 33 (0.52, 0.72)
-validation set: m = 47 k = 35 (0.53, 0.77) test set:  m = 47 k = 35 (0.52, 0.72)
-validation set: m = 47 k = 37 (0.53, 0.77) test set:  m = 47 k = 37 (0.52, 0.72)
-validation set: m = 47 k = 39 (0.53, 0.77) test set:  m = 47 k = 39 (0.52, 0.72)
-validation set: m = 47 k = 41 (0.53, 0.77) test set:  m = 47 k = 41 (0.52, 0.72)
-validation set: m = 47 k = 43 (0.53, 0.77) test set:  m = 47 k = 43 (0.52, 0.72)
-validation set: m = 47 k = 45 (0.53, 0.77) test set:  m = 47 k = 45 (0.52, 0.72)
-validation set: m = 47 k = 47 (0.53, 0.77) test set:  m = 47 k = 47 (0.52, 0.72)
-validation set: m = 47 k = 49 (0.53, 0.77) test set:  m = 47 k = 49 (0.52, 0.72)
-validation set: m = 49 k = 25 (0.53, 0.77) test set:  m = 49 k = 25 (0.52, 0.72)
-validation set: m = 49 k = 27 (0.53, 0.77) test set:  m = 49 k = 27 (0.52, 0.72)
-validation set: m = 49 k = 29 (0.53, 0.77) test set:  m = 49 k = 29 (0.52, 0.72)
-validation set: m = 49 k = 31 (0.53, 0.77) test set:  m = 49 k = 31 (0.52, 0.72)
-
-
-validation set: m = 50 k = 50 (0.57, 0.82) test set:  m = 50 k = 50 (0.58, 0.78)
-validation set: m = 50 k = 52 (0.57, 0.82) test set:  m = 50 k = 52 (0.58, 0.78)
-validation set: m = 50 k = 54 (0.57, 0.82) test set:  m = 50 k = 54 (0.58, 0.77)
-validation set: m = 50 k = 56 (0.57, 0.82) test set:  m = 50 k = 56 (0.58, 0.77)
-validation set: m = 50 k = 58 (0.57, 0.82) test set:  m = 50 k = 58 (0.58, 0.76)
-validation set: m = 50 k = 60 (0.53, 0.76) test set:  m = 50 k = 60 (0.52, 0.7)
-validation set: m = 50 k = 62 (0.53, 0.76) test set:  m = 50 k = 62 (0.52, 0.69)
-validation set: m = 50 k = 64 (0.53, 0.76) test set:  m = 50 k = 64 (0.52, 0.69)
-validation set: m = 50 k = 66 (0.53, 0.75) test set:  m = 50 k = 66 (0.52, 0.68)
-validation set: m = 50 k = 68 (0.53, 0.73) test set:  m = 50 k = 68 (0.51, 0.66)
-validation set: m = 50 k = 70 (0.53, 0.73) test set:  m = 50 k = 70 (0.51, 0.64)
-validation set: m = 50 k = 72 (0.53, 0.72) test set:  m = 50 k = 72 (0.51, 0.64)
-validation set: m = 50 k = 74 (0.53, 0.71) test set:  m = 50 k = 74 (0.51, 0.64)
-validation set: m = 52 k = 50 (0.53, 0.77) test set:  m = 52 k = 50 (0.52, 0.72)
-validation set: m = 52 k = 52 (0.53, 0.77) test set:  m = 52 k = 52 (0.52, 0.71)
-validation set: m = 52 k = 54 (0.53, 0.77) test set:  m = 52 k = 54 (0.52, 0.71)
-validation set: m = 52 k = 56 (0.53, 0.77) test set:  m = 52 k = 56 (0.52, 0.7)
-validation set: m = 52 k = 58 (0.53, 0.76) test set:  m = 52 k = 58 (0.52, 0.7)
-validation set: m = 52 k = 60 (0.53, 0.76) test set:  m = 52 k = 60 (0.52, 0.69)
-validation set: m = 52 k = 62 (0.53, 0.75) test set:  m = 52 k = 62 (0.52, 0.69)
-validation set: m = 52 k = 64 (0.53, 0.74) test set:  m = 52 k = 64 (0.52, 0.67)
-validation set: m = 52 k = 66 (0.53, 0.73) test set:  m = 52 k = 66 (0.51, 0.66)
-validation set: m = 52 k = 68 (0.53, 0.73) test set:  m = 52 k = 68 (0.51, 0.64)
-validation set: m = 52 k = 70 (0.53, 0.71) test set:  m = 52 k = 70 (0.51, 0.64)
-validation set: m = 52 k = 72 (0.53, 0.71) test set:  m = 52 k = 72 (0.51, 0.63)
-validation set: m = 52 k = 74 (0.52, 0.7) test set:  m = 52 k = 74 (0.51, 0.63)
-validation set: m = 54 k = 50 (0.53, 0.77) test set:  m = 54 k = 50 (0.52, 0.71)
-validation set: m = 54 k = 52 (0.53, 0.77) test set:  m = 54 k = 52 (0.52, 0.71)
-validation set: m = 54 k = 54 (0.53, 0.77) test set:  m = 54 k = 54 (0.52, 0.7)
-validation set: m = 54 k = 56 (0.53, 0.76) test set:  m = 54 k = 56 (0.52, 0.7)
-validation set: m = 54 k = 58 (0.53, 0.76) test set:  m = 54 k = 58 (0.52, 0.69)
-validation set: m = 54 k = 60 (0.53, 0.75) test set:  m = 54 k = 60 (0.52, 0.68)
-validation set: m = 54 k = 62 (0.53, 0.74) test set:  m = 54 k = 62 (0.51, 0.67)
-validation set: m = 54 k = 64 (0.53, 0.73) test set:  m = 54 k = 64 (0.51, 0.65)
-validation set: m = 54 k = 66 (0.53, 0.72) test set:  m = 54 k = 66 (0.51, 0.64)
-validation set: m = 54 k = 68 (0.53, 0.71) test set:  m = 54 k = 68 (0.51, 0.64)
-validation set: m = 54 k = 70 (0.52, 0.7) test set:  m = 54 k = 70 (0.51, 0.63)
-validation set: m = 54 k = 72 (0.52, 0.69) test set:  m = 54 k = 72 (0.5, 0.61)
-validation set: m = 54 k = 74 (0.52, 0.69) test set:  m = 54 k = 74 (0.49, 0.6)
-validation set: m = 56 k = 50 (0.53, 0.77) test set:  m = 56 k = 50 (0.52, 0.71)
-validation set: m = 56 k = 52 (0.53, 0.77) test set:  m = 56 k = 52 (0.52, 0.7)
-validation set: m = 56 k = 54 (0.53, 0.76) test set:  m = 56 k = 54 (0.52, 0.7)
-validation set: m = 56 k = 56 (0.53, 0.76) test set:  m = 56 k = 56 (0.52, 0.69)
-validation set: m = 56 k = 58 (0.53, 0.75) test set:  m = 56 k = 58 (0.52, 0.68)
-validation set: m = 56 k = 60 (0.53, 0.73) test set:  m = 56 k = 60 (0.51, 0.66)
-validation set: m = 56 k = 62 (0.53, 0.73) test set:  m = 56 k = 62 (0.51, 0.64)
-validation set: m = 56 k = 64 (0.53, 0.72) test set:  m = 56 k = 64 (0.51, 0.64)
-validation set: m = 56 k = 66 (0.53, 0.71) test set:  m = 56 k = 66 (0.51, 0.64)
-validation set: m = 56 k = 68 (0.52, 0.7) test set:  m = 56 k = 68 (0.51, 0.63)
-validation set: m = 56 k = 70 (0.52, 0.69) test set:  m = 56 k = 70 (0.5, 0.61)
-validation set: m = 56 k = 72 (0.52, 0.69) test set:  m = 56 k = 72 (0.49, 0.6)
-validation set: m = 56 k = 74 (0.52, 0.69) test set:  m = 56 k = 74 (0.49, 0.6)
-validation set: m = 58 k = 50 (0.53, 0.77) test set:  m = 58 k = 50 (0.52, 0.7)
-validation set: m = 58 k = 52 (0.53, 0.76) test set:  m = 58 k = 52 (0.52, 0.7)
-validation set: m = 58 k = 54 (0.53, 0.76) test set:  m = 58 k = 54 (0.52, 0.69)
-validation set: m = 58 k = 56 (0.53, 0.75) test set:  m = 58 k = 56 (0.52, 0.68)
-validation set: m = 58 k = 58 (0.53, 0.73) test set:  m = 58 k = 58 (0.51, 0.66)
-validation set: m = 58 k = 60 (0.53, 0.73) test set:  m = 58 k = 60 (0.51, 0.64)
-validation set: m = 58 k = 62 (0.53, 0.72) test set:  m = 58 k = 62 (0.51, 0.64)
-validation set: m = 58 k = 64 (0.53, 0.71) test set:  m = 58 k = 64 (0.51, 0.63)
-validation set: m = 58 k = 66 (0.52, 0.7) test set:  m = 58 k = 66 (0.51, 0.62)
-validation set: m = 58 k = 68 (0.52, 0.69) test set:  m = 58 k = 68 (0.49, 0.6)
-validation set: m = 58 k = 70 (0.52, 0.69) test set:  m = 58 k = 70 (0.49, 0.6)
-validation set: m = 58 k = 72 (0.52, 0.68) test set:  m = 58 k = 72 (0.49, 0.6)
-validation set: m = 58 k = 74 (0.51, 0.66) test set:  m = 58 k = 74 (0.47, 0.6)
-validation set: m = 60 k = 50 (0.53, 0.76) test set:  m = 60 k = 50 (0.52, 0.7)
-validation set: m = 60 k = 52 (0.53, 0.76) test set:  m = 60 k = 52 (0.52, 0.69)
-validation set: m = 60 k = 54 (0.53, 0.75) test set:  m = 60 k = 54 (0.52, 0.68)
-validation set: m = 60 k = 56 (0.53, 0.73) test set:  m = 60 k = 56 (0.51, 0.66)
-validation set: m = 60 k = 58 (0.53, 0.73) test set:  m = 60 k = 58 (0.51, 0.64)
-validation set: m = 60 k = 60 (0.53, 0.71) test set:  m = 60 k = 60 (0.51, 0.64)
-validation set: m = 60 k = 62 (0.53, 0.71) test set:  m = 60 k = 62 (0.51, 0.63)
-validation set: m = 60 k = 64 (0.52, 0.69) test set:  m = 60 k = 64 (0.5, 0.61)
-validation set: m = 60 k = 66 (0.52, 0.69) test set:  m = 60 k = 66 (0.49, 0.6)
-validation set: m = 60 k = 68 (0.52, 0.69) test set:  m = 60 k = 68 (0.49, 0.6)
-validation set: m = 60 k = 70 (0.52, 0.67) test set:  m = 60 k = 70 (0.48, 0.6)
-validation set: m = 60 k = 72 (0.51, 0.66) test set:  m = 60 k = 72 (0.47, 0.58)
-validation set: m = 60 k = 74 (0.51, 0.66) test set:  m = 60 k = 74 (0.47, 0.57)
-validation set: m = 62 k = 50 (0.53, 0.76) test set:  m = 62 k = 50 (0.52, 0.69)
-validation set: m = 62 k = 52 (0.53, 0.75) test set:  m = 62 k = 52 (0.52, 0.68)
-validation set: m = 62 k = 54 (0.53, 0.73) test set:  m = 62 k = 54 (0.51, 0.66)
-validation set: m = 62 k = 56 (0.53, 0.73) test set:  m = 62 k = 56 (0.51, 0.64)
-validation set: m = 62 k = 58 (0.53, 0.71) test set:  m = 62 k = 58 (0.51, 0.64)
-validation set: m = 62 k = 60 (0.52, 0.7) test set:  m = 62 k = 60 (0.51, 0.63)
-validation set: m = 62 k = 62 (0.52, 0.69) test set:  m = 62 k = 62 (0.5, 0.61)
-validation set: m = 62 k = 64 (0.52, 0.69) test set:  m = 62 k = 64 (0.49, 0.6)
-validation set: m = 62 k = 66 (0.52, 0.69) test set:  m = 62 k = 66 (0.49, 0.6)
-validation set: m = 62 k = 68 (0.52, 0.67) test set:  m = 62 k = 68 (0.48, 0.6)
-validation set: m = 62 k = 70 (0.51, 0.66) test set:  m = 62 k = 70 (0.47, 0.57)
-validation set: m = 62 k = 72 (0.51, 0.65) test set:  m = 62 k = 72 (0.47, 0.57)
-validation set: m = 62 k = 74 (0.5, 0.63) test set:  m = 62 k = 74 (0.47, 0.57)
-validation set: m = 64 k = 50 (0.53, 0.75) test set:  m = 64 k = 50 (0.52, 0.68)
-validation set: m = 64 k = 52 (0.53, 0.73) test set:  m = 64 k = 52 (0.51, 0.66)
-validation set: m = 64 k = 54 (0.53, 0.73) test set:  m = 64 k = 54 (0.51, 0.64)
-validation set: m = 64 k = 56 (0.53, 0.71) test set:  m = 64 k = 56 (0.51, 0.64)
-validation set: m = 64 k = 58 (0.52, 0.7) test set:  m = 64 k = 58 (0.51, 0.63)
-validation set: m = 64 k = 60 (0.52, 0.69) test set:  m = 64 k = 60 (0.5, 0.61)
-validation set: m = 64 k = 62 (0.52, 0.69) test set:  m = 64 k = 62 (0.49, 0.6)
-validation set: m = 64 k = 64 (0.52, 0.69) test set:  m = 64 k = 64 (0.49, 0.6)
-validation set: m = 64 k = 66 (0.52, 0.67) test set:  m = 64 k = 66 (0.48, 0.6)
-validation set: m = 64 k = 68 (0.51, 0.66) test set:  m = 64 k = 68 (0.47, 0.57)
-validation set: m = 64 k = 70 (0.51, 0.64) test set:  m = 64 k = 70 (0.47, 0.57)
-validation set: m = 64 k = 72 (0.49, 0.63) test set:  m = 64 k = 72 (0.47, 0.56)
-validation set: m = 64 k = 74 (0.47, 0.61) test set:  m = 64 k = 74 (0.46, 0.54)
-validation set: m = 66 k = 50 (0.53, 0.74) test set:  m = 66 k = 50 (0.51, 0.67)
-validation set: m = 66 k = 52 (0.53, 0.73) test set:  m = 66 k = 52 (0.51, 0.64)
-validation set: m = 66 k = 54 (0.53, 0.71) test set:  m = 66 k = 54 (0.51, 0.64)
-validation set: m = 66 k = 56 (0.53, 0.71) test set:  m = 66 k = 56 (0.51, 0.63)
-validation set: m = 66 k = 58 (0.52, 0.69) test set:  m = 66 k = 58 (0.5, 0.61)
-validation set: m = 66 k = 60 (0.52, 0.69) test set:  m = 66 k = 60 (0.49, 0.6)
-validation set: m = 66 k = 62 (0.52, 0.68) test set:  m = 66 k = 62 (0.49, 0.6)
-validation set: m = 66 k = 64 (0.52, 0.66) test set:  m = 66 k = 64 (0.48, 0.6)
-validation set: m = 66 k = 66 (0.51, 0.66) test set:  m = 66 k = 66 (0.47, 0.57)
-validation set: m = 66 k = 68 (0.51, 0.63) test set:  m = 66 k = 68 (0.47, 0.57)
-validation set: m = 66 k = 70 (0.49, 0.63) test set:  m = 66 k = 70 (0.47, 0.54)
-validation set: m = 66 k = 72 (0.47, 0.6) test set:  m = 66 k = 72 (0.46, 0.54)
-validation set: m = 66 k = 74 (0.43, 0.6) test set:  m = 66 k = 74 (0.46, 0.53)
-validation set: m = 68 k = 50 (0.53, 0.73) test set:  m = 68 k = 50 (0.51, 0.65)
-
+validation set: m = 20 k = 20 (0.39, 0.52)
+test set:       m = 20 k = 20 (0.39, 0.52)
+=====================================================
+validation set: m = 20 k = 25 (0.37, 0.61)
+test set:       m = 20 k = 25 (0.39, 0.59)
+=====================================================
+validation set: m = 20 k = 30 (0.34, 0.72)
+test set:       m = 20 k = 30 (0.39, 0.77)
+=====================================================
+validation set: m = 20 k = 35 (0.32, 0.86)
+test set:       m = 20 k = 35 (0.32, 0.88)
+=====================================================
+validation set: m = 20 k = 40 (0.29, 0.99)
+test set:       m = 20 k = 40 (0.27, 0.97)
+=====================================================
+validation set: m = 20 k = 45 (0.42, 0.99)
+test set:       m = 20 k = 45 (0.39, 0.98)
+=====================================================
+validation set: m = 20 k = 50 (0.5, 0.94)
+test set:       m = 20 k = 50 (0.5, 0.93)
+=====================================================
+validation set: m = 20 k = 55 (0.52, 0.93)
+test set:       m = 20 k = 55 (0.53, 0.9)
+=====================================================
+validation set: m = 20 k = 60 (0.55, 0.9)
+test set:       m = 20 k = 60 (0.57, 0.89)
+=====================================================
+validation set: m = 20 k = 65 (0.57, 0.89)
+test set:       m = 20 k = 65 (0.57, 0.87)
+=====================================================
+validation set: m = 20 k = 70 (0.57, 0.89)
+test set:       m = 20 k = 70 (0.58, 0.87)
+=====================================================
+validation set: m = 20 k = 75 (0.57, 0.87)
+test set:       m = 20 k = 75 (0.58, 0.85)
+=====================================================
+validation set: m = 25 k = 20 (0.37, 0.61)
+test set:       m = 25 k = 20 (0.39, 0.61)
+=====================================================
+validation set: m = 25 k = 25 (0.32, 0.78)
+test set:       m = 25 k = 25 (0.36, 0.82)
+=====================================================
+validation set: m = 25 k = 30 (0.31, 0.96)
+test set:       m = 25 k = 30 (0.3, 0.95)
+=====================================================
+validation set: m = 25 k = 35 (0.42, 1.0)
+test set:       m = 25 k = 35 (0.36, 0.98)
+=====================================================
+validation set: m = 25 k = 40 (0.51, 0.94)
+test set:       m = 25 k = 40 (0.5, 0.92)
+=====================================================
+validation set: m = 25 k = 45 (0.53, 0.93)
+test set:       m = 25 k = 45 (0.54, 0.9)
+=====================================================
+validation set: m = 25 k = 50 (0.56, 0.89)
+test set:       m = 25 k = 50 (0.58, 0.87)
+=====================================================
+validation set: m = 25 k = 55 (0.57, 0.89)
+test set:       m = 25 k = 55 (0.58, 0.87)
+=====================================================
+validation set: m = 25 k = 60 (0.57, 0.87)
+test set:       m = 25 k = 60 (0.58, 0.85)
+=====================================================
+validation set: m = 25 k = 65 (0.57, 0.86)
+test set:       m = 25 k = 65 (0.58, 0.85)
+=====================================================
+validation set: m = 25 k = 70 (0.57, 0.84)
+test set:       m = 25 k = 70 (0.58, 0.83)
+=====================================================
+validation set: m = 25 k = 75 (0.57, 0.83)
+test set:       m = 25 k = 75 (0.58, 0.82)
+=====================================================
+validation set: m = 30 k = 20 (0.33, 0.73)
+test set:       m = 30 k = 20 (0.37, 0.78)
+=====================================================
+validation set: m = 30 k = 25 (0.31, 0.96)
+test set:       m = 30 k = 25 (0.29, 0.95)
+=====================================================
+validation set: m = 30 k = 30 (0.43, 0.99)
+test set:       m = 30 k = 30 (0.41, 0.97)
+=====================================================
+validation set: m = 30 k = 35 (0.52, 0.93)
+test set:       m = 30 k = 35 (0.52, 0.92)
+=====================================================
+validation set: m = 30 k = 40 (0.56, 0.89)
+test set:       m = 30 k = 40 (0.57, 0.88)
+=====================================================
+validation set: m = 30 k = 45 (0.57, 0.89)
+test set:       m = 30 k = 45 (0.58, 0.87)
+=====================================================
+validation set: m = 30 k = 50 (0.57, 0.87)
+test set:       m = 30 k = 50 (0.58, 0.85)
+=====================================================
+validation set: m = 30 k = 55 (0.57, 0.85)
+test set:       m = 30 k = 55 (0.58, 0.85)
+=====================================================
+validation set: m = 30 k = 60 (0.57, 0.83)
+test set:       m = 30 k = 60 (0.58, 0.82)
+=====================================================
+validation set: m = 30 k = 65 (0.57, 0.82)
+test set:       m = 30 k = 65 (0.58, 0.8)
+=====================================================
+validation set: m = 30 k = 70 (0.57, 0.82)
+test set:       m = 30 k = 70 (0.58, 0.79)
+=====================================================
+validation set: m = 30 k = 75 (0.57, 0.82)
+test set:       m = 30 k = 75 (0.58, 0.78)
+=====================================================
+validation set: m = 35 k = 20 (0.32, 0.9)
+test set:       m = 35 k = 20 (0.32, 0.91)
+=====================================================
+validation set: m = 35 k = 25 (0.42, 0.99)
+test set:       m = 35 k = 25 (0.39, 0.98)
+=====================================================
+validation set: m = 35 k = 30 (0.52, 0.93)
+test set:       m = 35 k = 30 (0.54, 0.92)
+=====================================================
+validation set: m = 35 k = 35 (0.56, 0.89)
+test set:       m = 35 k = 35 (0.58, 0.87)
+=====================================================
+validation set: m = 35 k = 40 (0.57, 0.88)
+test set:       m = 35 k = 40 (0.58, 0.85)
+=====================================================
+validation set: m = 35 k = 45 (0.57, 0.86)
+test set:       m = 35 k = 45 (0.58, 0.85)
+=====================================================
+validation set: m = 35 k = 50 (0.57, 0.83)
+test set:       m = 35 k = 50 (0.58, 0.82)
+=====================================================
+validation set: m = 35 k = 55 (0.57, 0.82)
+test set:       m = 35 k = 55 (0.58, 0.8)
+=====================================================
+validation set: m = 35 k = 60 (0.57, 0.82)
+test set:       m = 35 k = 60 (0.58, 0.79)
+=====================================================
+validation set: m = 35 k = 65 (0.57, 0.82)
+test set:       m = 35 k = 65 (0.58, 0.78)
+=====================================================
+validation set: m = 35 k = 70 (0.57, 0.82)
+test set:       m = 35 k = 70 (0.58, 0.78)
+=====================================================
+C:\Users\Angus\PycharmProjects\movie_reviews\naivebayes.py:202: RuntimeWarning: overflow encountered in exp
+  neg_prob = exp(neg_sum + prior)
+C:\Users\Angus\PycharmProjects\movie_reviews\naivebayes.py:203: RuntimeWarning: overflow encountered in exp
+  pos_prob = exp(pos_sum + prior)
+validation set: m = 35 k = 75 (0.57, 0.82)
+test set:       m = 35 k = 75 (0.58, 0.77)
+=====================================================
+validation set: m = 40 k = 20 (0.27, 1.0)
+test set:       m = 40 k = 20 (0.3, 0.98)
+=====================================================
+validation set: m = 40 k = 25 (0.51, 0.93)
+test set:       m = 40 k = 25 (0.5, 0.92)
+=====================================================
+validation set: m = 40 k = 30 (0.56, 0.89)
+test set:       m = 40 k = 30 (0.57, 0.88)
+=====================================================
+validation set: m = 40 k = 35 (0.57, 0.88)
+test set:       m = 40 k = 35 (0.58, 0.85)
+=====================================================
+validation set: m = 40 k = 40 (0.57, 0.86)
+test set:       m = 40 k = 40 (0.58, 0.85)
+=====================================================
+validation set: m = 40 k = 45 (0.57, 0.83)
+test set:       m = 40 k = 45 (0.58, 0.82)
+=====================================================
+validation set: m = 40 k = 50 (0.57, 0.82)
+test set:       m = 40 k = 50 (0.58, 0.8)
+=====================================================
+validation set: m = 40 k = 55 (0.57, 0.82)
+test set:       m = 40 k = 55 (0.58, 0.78)
+=====================================================
+validation set: m = 40 k = 60 (0.57, 0.82)
+test set:       m = 40 k = 60 (0.58, 0.78)
+=====================================================
+validation set: m = 40 k = 65 (0.57, 0.82)
+test set:       m = 40 k = 65 (0.58, 0.77)
+=====================================================
+validation set: m = 40 k = 70 (0.57, 0.82)
+test set:       m = 40 k = 70 (0.58, 0.77)
+=====================================================
+validation set: m = 40 k = 75 (0.57, 0.81)
+test set:       m = 40 k = 75 (0.58, 0.74)
+=====================================================
+validation set: m = 45 k = 20 (0.46, 0.99)
+test set:       m = 45 k = 20 (0.42, 0.97)
+=====================================================
+validation set: m = 45 k = 25 (0.55, 0.93)
+test set:       m = 45 k = 25 (0.55, 0.89)
+=====================================================
+validation set: m = 45 k = 30 (0.57, 0.89)
+test set:       m = 45 k = 30 (0.58, 0.87)
+=====================================================
+validation set: m = 45 k = 35 (0.57, 0.86)
+test set:       m = 45 k = 35 (0.58, 0.85)
+=====================================================
+validation set: m = 45 k = 40 (0.57, 0.83)
+test set:       m = 45 k = 40 (0.58, 0.82)
+=====================================================
+validation set: m = 45 k = 45 (0.57, 0.82)
+test set:       m = 45 k = 45 (0.58, 0.79)
+=====================================================
+validation set: m = 45 k = 50 (0.57, 0.82)
+test set:       m = 45 k = 50 (0.58, 0.78)
+=====================================================
+validation set: m = 45 k = 55 (0.57, 0.82)
+test set:       m = 45 k = 55 (0.58, 0.78)
+=====================================================
+validation set: m = 45 k = 60 (0.57, 0.82)
+test set:       m = 45 k = 60 (0.58, 0.77)
+=====================================================
+validation set: m = 45 k = 65 (0.57, 0.81)
+test set:       m = 45 k = 65 (0.58, 0.76)
+=====================================================
+validation set: m = 45 k = 70 (0.57, 0.8)
+test set:       m = 45 k = 70 (0.58, 0.73)
+=====================================================
+C:\Users\Angus\PycharmProjects\movie_reviews\naivebayes.py:183: RuntimeWarning: overflow encountered in exp
+  neg_prob = exp(neg_sum + prior)
+C:\Users\Angus\PycharmProjects\movie_reviews\naivebayes.py:184: RuntimeWarning: overflow encountered in exp
+  pos_prob = exp(pos_sum + prior)
+validation set: m = 45 k = 75 (0.57, 0.78)
+test set:       m = 45 k = 75 (0.57, 0.69)
+=====================================================
+validation set: m = 50 k = 20 (0.51, 0.93)
+test set:       m = 50 k = 20 (0.5, 0.91)
+=====================================================
+validation set: m = 50 k = 25 (0.57, 0.89)
+test set:       m = 50 k = 25 (0.57, 0.87)
+=====================================================
+validation set: m = 50 k = 30 (0.57, 0.87)
+test set:       m = 50 k = 30 (0.58, 0.85)
+=====================================================
+validation set: m = 50 k = 35 (0.57, 0.83)
+test set:       m = 50 k = 35 (0.58, 0.82)
+=====================================================
+validation set: m = 50 k = 40 (0.57, 0.82)
+test set:       m = 50 k = 40 (0.58, 0.79)
+=====================================================
+validation set: m = 50 k = 45 (0.57, 0.82)
+test set:       m = 50 k = 45 (0.58, 0.78)
+=====================================================
+validation set: m = 50 k = 50 (0.57, 0.82)
+test set:       m = 50 k = 50 (0.58, 0.78)
+=====================================================
+validation set: m = 50 k = 55 (0.57, 0.82)
+test set:       m = 50 k = 55 (0.58, 0.77)
+=====================================================
+validation set: m = 50 k = 60 (0.57, 0.81)
+test set:       m = 50 k = 60 (0.58, 0.74)
+=====================================================
+validation set: m = 50 k = 65 (0.57, 0.78)
+test set:       m = 50 k = 65 (0.57, 0.71)
+=====================================================
+validation set: m = 50 k = 70 (0.57, 0.76)
+test set:       m = 50 k = 70 (0.57, 0.69)
+=====================================================
+validation set: m = 50 k = 75 (0.56, 0.74)
+test set:       m = 50 k = 75 (0.56, 0.67)
+=====================================================
+validation set: m = 55 k = 20 (0.53, 0.93)
+test set:       m = 55 k = 20 (0.54, 0.9)
+=====================================================
+validation set: m = 55 k = 25 (0.57, 0.89)
+test set:       m = 55 k = 25 (0.58, 0.86)
+=====================================================
+validation set: m = 55 k = 30 (0.57, 0.85)
+test set:       m = 55 k = 30 (0.58, 0.85)
+=====================================================
+validation set: m = 55 k = 35 (0.57, 0.82)
+test set:       m = 55 k = 35 (0.58, 0.8)
+=====================================================
+validation set: m = 55 k = 40 (0.57, 0.82)
+test set:       m = 55 k = 40 (0.58, 0.78)
+=====================================================
+validation set: m = 55 k = 45 (0.57, 0.82)
+test set:       m = 55 k = 45 (0.58, 0.78)
+=====================================================
+validation set: m = 55 k = 50 (0.57, 0.82)
+test set:       m = 55 k = 50 (0.58, 0.76)
+=====================================================
+validation set: m = 55 k = 55 (0.57, 0.81)
+test set:       m = 55 k = 55 (0.58, 0.74)
+=====================================================
+validation set: m = 55 k = 60 (0.57, 0.78)
+test set:       m = 55 k = 60 (0.57, 0.69)
+=====================================================
+validation set: m = 55 k = 65 (0.57, 0.76)
+test set:       m = 55 k = 65 (0.57, 0.68)
+=====================================================
+validation set: m = 55 k = 70 (0.56, 0.74)
+test set:       m = 55 k = 70 (0.55, 0.65)
+=====================================================
+validation set: m = 55 k = 75 (0.55, 0.71)
+test set:       m = 55 k = 75 (0.53, 0.65)
+=====================================================
+validation set: m = 60 k = 20 (0.56, 0.89)
+test set:       m = 60 k = 20 (0.58, 0.87)
+=====================================================
+validation set: m = 60 k = 25 (0.57, 0.86)
+test set:       m = 60 k = 25 (0.58, 0.85)
+=====================================================
+validation set: m = 60 k = 30 (0.57, 0.83)
+test set:       m = 60 k = 30 (0.58, 0.82)
+=====================================================
+validation set: m = 60 k = 35 (0.57, 0.82)
+test set:       m = 60 k = 35 (0.58, 0.79)
+=====================================================
+validation set: m = 60 k = 40 (0.57, 0.82)
+test set:       m = 60 k = 40 (0.58, 0.78)
+=====================================================
+validation set: m = 60 k = 45 (0.57, 0.82)
+test set:       m = 60 k = 45 (0.58, 0.77)
+=====================================================
+validation set: m = 60 k = 50 (0.57, 0.81)
+test set:       m = 60 k = 50 (0.58, 0.74)
+=====================================================
+validation set: m = 60 k = 55 (0.57, 0.78)
+test set:       m = 60 k = 55 (0.57, 0.69)
+=====================================================
+validation set: m = 60 k = 60 (0.56, 0.75)
+test set:       m = 60 k = 60 (0.57, 0.68)
+=====================================================
+validation set: m = 60 k = 65 (0.56, 0.74)
+test set:       m = 60 k = 65 (0.55, 0.65)
+=====================================================
+validation set: m = 60 k = 70 (0.55, 0.71)
+test set:       m = 60 k = 70 (0.53, 0.62)
+=====================================================
+validation set: m = 60 k = 75 (0.52, 0.68)
+test set:       m = 60 k = 75 (0.53, 0.59)
+=====================================================
+validation set: m = 65 k = 20 (0.57, 0.89)
+test set:       m = 65 k = 20 (0.58, 0.87)
+=====================================================
+validation set: m = 65 k = 25 (0.57, 0.85)
+test set:       m = 65 k = 25 (0.58, 0.85)
+=====================================================
+validation set: m = 65 k = 30 (0.57, 0.82)
+test set:       m = 65 k = 30 (0.58, 0.8)
+=====================================================
+validation set: m = 65 k = 35 (0.57, 0.82)
+test set:       m = 65 k = 35 (0.58, 0.78)
+=====================================================
+validation set: m = 65 k = 40 (0.57, 0.82)
+test set:       m = 65 k = 40 (0.58, 0.77)
+=====================================================
+validation set: m = 65 k = 45 (0.57, 0.81)
+test set:       m = 65 k = 45 (0.58, 0.74)
+=====================================================
+validation set: m = 65 k = 50 (0.57, 0.78)
+test set:       m = 65 k = 50 (0.57, 0.7)
+=====================================================
+validation set: m = 65 k = 55 (0.56, 0.75)
+test set:       m = 65 k = 55 (0.57, 0.68)
+=====================================================
+validation set: m = 65 k = 60 (0.56, 0.74)
+test set:       m = 65 k = 60 (0.55, 0.65)
+=====================================================
+validation set: m = 65 k = 65 (0.55, 0.71)
+test set:       m = 65 k = 65 (0.53, 0.62)
+=====================================================
+validation set: m = 65 k = 70 (0.51, 0.66)
+test set:       m = 65 k = 70 (0.52, 0.59)
+=====================================================
+validation set: m = 65 k = 75 (0.46, 0.64)
+test set:       m = 65 k = 75 (0.51, 0.58)
+=====================================================
+validation set: m = 70 k = 20 (0.57, 0.88)
+test set:       m = 70 k = 20 (0.58, 0.85)
+=====================================================
+validation set: m = 70 k = 25 (0.57, 0.83)
+test set:       m = 70 k = 25 (0.58, 0.82)
+=====================================================
+validation set: m = 70 k = 30 (0.57, 0.82)
+test set:       m = 70 k = 30 (0.58, 0.79)
+=====================================================
+validation set: m = 70 k = 35 (0.57, 0.82)
+test set:       m = 70 k = 35 (0.58, 0.78)
+=====================================================
+validation set: m = 70 k = 40 (0.57, 0.81)
+test set:       m = 70 k = 40 (0.58, 0.76)
+=====================================================
+validation set: m = 70 k = 45 (0.57, 0.79)
+test set:       m = 70 k = 45 (0.57, 0.71)
+=====================================================
+validation set: m = 70 k = 50 (0.57, 0.76)
+test set:       m = 70 k = 50 (0.57, 0.68)
+=====================================================
+validation set: m = 70 k = 55 (0.56, 0.74)
+test set:       m = 70 k = 55 (0.55, 0.65)
+=====================================================
+validation set: m = 70 k = 60 (0.55, 0.71)
+test set:       m = 70 k = 60 (0.53, 0.62)
+=====================================================
+validation set: m = 70 k = 65 (0.51, 0.66)
+test set:       m = 70 k = 65 (0.52, 0.59)
+=====================================================
+validation set: m = 70 k = 70 (0.45, 0.63)
+test set:       m = 70 k = 70 (0.51, 0.57)
+=====================================================
+validation set: m = 70 k = 75 (0.44, 0.59)
+test set:       m = 70 k = 75 (0.49, 0.55)
+=====================================================
+validation set: m = 75 k = 20 (0.57, 0.86)
+test set:       m = 75 k = 20 (0.58, 0.85)
+=====================================================
+validation set: m = 75 k = 25 (0.57, 0.82)
+test set:       m = 75 k = 25 (0.58, 0.8)
+=====================================================
+validation set: m = 75 k = 30 (0.57, 0.82)
+test set:       m = 75 k = 30 (0.58, 0.78)
+=====================================================
+validation set: m = 75 k = 35 (0.57, 0.82)
+test set:       m = 75 k = 35 (0.58, 0.77)
+=====================================================
+validation set: m = 75 k = 40 (0.57, 0.8)
+test set:       m = 75 k = 40 (0.58, 0.73)
+=====================================================
+validation set: m = 75 k = 45 (0.57, 0.77)
+test set:       m = 75 k = 45 (0.57, 0.69)
+=====================================================
+validation set: m = 75 k = 50 (0.56, 0.74)
+test set:       m = 75 k = 50 (0.55, 0.65)
+=====================================================
+validation set: m = 75 k = 55 (0.55, 0.71)
+test set:       m = 75 k = 55 (0.53, 0.62)
+=====================================================
+validation set: m = 75 k = 60 (0.51, 0.66)
+test set:       m = 75 k = 60 (0.52, 0.59)
+=====================================================
+validation set: m = 75 k = 65 (0.45, 0.63)
+test set:       m = 75 k = 65 (0.51, 0.57)
+=====================================================
+validation set: m = 75 k = 70 (0.44, 0.58)
+test set:       m = 75 k = 70 (0.49, 0.55)
+=====================================================
+validation set: m = 75 k = 75 (0.43, 0.58)
+test set:       m = 75 k = 75 (0.49, 0.54)
+=====================================================
