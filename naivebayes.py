@@ -19,8 +19,8 @@ import tensorflow as tf
 download   = False #download dataset (just pull from github, don't need to run this)
 run_part1  = False #prints each word and its frequency
 run_part2  = False #prints naive bayes classification performance
-tuning_mk  = True #tuning m and k for naive bayes
-run_part3  = False #printing 10 most important words for negative and positive reviews
+tuning_mk  = False #tuning m and k for naive bayes
+run_part3  = True #printing 10 most important words for negative and positive reviews
 run_part4  = False  #logistic regression via. tensor flow
 tuning_lam = False
 
@@ -234,15 +234,37 @@ def max_validation():
             #print("training set:   " + "m = " + str(m) + " k = " + str(k), score2)
             print("=====================================================")
     print(combined_score,mk)
+    
 def most_predictive(neg_dict, pos_dict):
     '''param dict {pos, neg} which is a dictionary containing (word, probability)
        returns top 10 most common words
     '''
+    neg_words = {}
+    pos_words = {}
     
-    neg_words = dict(sorted(neg_dict.items(), key=operator.itemgetter(1), reverse=True)[:10])
-    pos_words = dict(sorted(pos_dict.items(), key=operator.itemgetter(1), reverse=True)[:10])
-    print(neg_words)
-    print(pos_words)
+    #take the difference of the probabilities
+
+    for word in neg_dict:
+        if word not in pos_dict:
+            neg_words[word] = neg_dict[word]
+        else:
+            neg_words[word] = abs(neg_dict[word] - 0.5*pos_dict[word])
+    
+    for word in pos_dict:
+        if word not in neg_dict:
+            pos_words[word] = pos_dict[word]
+        else:
+            pos_words[word] = abs(pos_dict[word] - 0.5*neg_dict[word])
+    
+    
+    
+    neg_words = sorted(neg_words.items(), key=lambda x: x[1], reverse=True)[:10]
+    pos_words = sorted(pos_words.items(), key=lambda x: x[1], reverse=True)[:10]
+    for i in neg_words:
+        print(i)
+    print("===============================")
+    for i in pos_words:
+        print(i)
     return neg_words, pos_words
 
 def get_numwords(neg_dict, pos_dict):
@@ -484,8 +506,8 @@ if run_part1 == True:
 if run_part2 == True:
     '''unnormalized settings''' #normalizing actaully made performance worse...
     dicts = generate_dict('training_set')
-    m = 30
-    k = 30
+    m = 25
+    k = 55
     '''normalized settings'''
     # dicts = generate_dict_normalized('training_set')
     # m = 25
@@ -507,9 +529,12 @@ if tuning_mk == True:
     
 if run_part3 == True:
     dicts = generate_dict('training_set')
-    m = 50
-    k = 50
+    m = 25
+    k = 55
+    # m = 45
+    # k = 25
     neg_dict = calculate_prob(dicts[0], m, k)
+    dicts = generate_dict('training_set')
     pos_dict = calculate_prob(dicts[1], m, k)
     most_predictive(neg_dict, pos_dict)
 
