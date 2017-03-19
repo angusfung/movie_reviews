@@ -14,15 +14,15 @@ import shutil
 import string
 import operator
 import tensorflow as tf
-import naivebayes.py
+from naivebayes import *
 
 # ======================================================================================================================
 # ========================================= Running the code ===========================================================
 # ======================================================================================================================
 
 
-run_part4  = False  #logistic regression via. tensor flow
-tuning_lam = False
+run_part4  = False  # Logistic regression via. Tensor Flow
+tuning_lam = False # Finding the optimal regularization parameter - Takes time!
 
 
 # ======================================================================================================================
@@ -31,8 +31,11 @@ tuning_lam = False
 
 
 def get_train(neg_dict, pos_dict):
-    '''param dict {pos, neg} which is a dictionary containing (word, probability)
-       returns:
+    '''
+    Generates matricies for the training set according to dictionaries specified
+    :param neg_dict: dictionary of negative reviews
+    :param pos_dict: dictionary of positive reviews
+    :return: x and y matricies prepared for classificaiton
             X is a MxN vector, where M is the number of reviews
                                      N is the number of words
             Y is a Mx1 vector, where M is the number of reviews
@@ -74,6 +77,15 @@ def get_train(neg_dict, pos_dict):
 
 
 def get_test(neg_dict, pos_dict):
+    '''
+    Generates matricies for the test set according to dictionaries specified
+    :param neg_dict: dictionary of negative reviews
+    :param pos_dict: dictionary of positive reviews
+    :return: x and y matricies prepared for classificaiton
+            X is a MxN vector, where M is the number of reviews
+                                     N is the number of words
+            Y is a Mx1 vector, where M is the number of reviews
+    '''
     combined_list = []
 
     num_words, combined_list = get_numwords(neg_dict, pos_dict)
@@ -111,6 +123,15 @@ def get_test(neg_dict, pos_dict):
 
 
 def get_validation(neg_dict, pos_dict):
+    '''
+    Generates matricies for the validation set according to dictionaries specified
+    :param neg_dict: dictionary of negative reviews
+    :param pos_dict: dictionary of positive reviews
+    :return: x and y matricies prepared for classificaiton
+            X is a MxN vector, where M is the number of reviews
+                                     N is the number of words
+            Y is a Mx1 vector, where M is the number of reviews
+    '''
     combined_list = []
 
     num_words, combined_list = get_numwords(neg_dict, pos_dict)
@@ -147,7 +168,15 @@ def get_validation(neg_dict, pos_dict):
     return x, y
 
 
-def logistic_regression(neg_dict, pos_dict, num_words, lam):
+def logistic_regression(neg_dict, pos_dict, num_words, lam, total_iterations=500, print_iterations = True):
+    '''
+    Performs logistic regression with Tensor Flow
+    :param neg_dict: dictionary of negative reviews
+    :param pos_dict: dictionary of positive reviews
+    :param num_words: total number of words
+    :param lam: regularizing parameter lambda
+    :return: performance
+    '''
     # Initialize Tensor Flow variables
     x = tf.placeholder(tf.float32, [None, num_words])
     W0 = tf.Variable(tf.random_normal([num_words, 2], stddev=0.01))
@@ -173,57 +202,85 @@ def logistic_regression(neg_dict, pos_dict, num_words, lam):
     val_x, val_y = get_validation(neg_dict, pos_dict)
     batch_xs, batch_ys = get_train(neg_dict, pos_dict)
 
-    # Run the TF, collect accuracies in a separate array
+    # Run the TF, collect accuracies in separate arrays
+    train_results = []
     test_results = []
     validation_results = []
-    for i in range(500):
+    for i in range(total_iterations):
         # print i
         sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
 
-        if i % 5 == 0:
+        if i % 3 == 0:
             test_accuracy = sess.run(accuracy, feed_dict={x: test_x, y_: test_y})
             validation_accuracy = sess.run(accuracy, feed_dict={x: val_x, y_: val_y})
             train_accuracy = sess.run(accuracy, feed_dict={x: batch_xs, y_: batch_ys})
-
-            print("i=", i)
-            print("Test:", test_accuracy)
-            print("Validation:", validation_accuracy)
-            print("Train:", train_accuracy)
-            print("Penalty:", sess.run(decay_penalty))
-            print(sess.run(reg_NLL, feed_dict={x: batch_xs, y_: batch_ys}))
+            if print_iterations:
+                print("i=", i)
+                print("Train: " + str(train_accuracy))
+                print("Validation: " + str(validation_accuracy))
+                print("Test: "  + str(test_accuracy))
+                print("Penalty: " + str(sess.run(decay_penalty)))
+            train_results.append(train_accuracy)
             test_results.append(test_accuracy)
             validation_results.append(validation_accuracy)
-    return max(test_results), max(validation_results)
+    return (train_results, validation_results, test_results)
 
 # ======================================================================================================================
 # ========================================== Definitions end ===========================================================
 # ======================================================================================================================
 
 
-if run_part4 == True:
-    neg_dict, pos_dict = generate_dict('training_set')
+if run_part4:
+    neg_dict, pos_dict = generate_count_dict('training_set')
     num_words = get_numwords(neg_dict, pos_dict)[0]
 
-    lam = 1
-    logistic_regression(neg_dict, pos_dict, num_words, lam)
+    lam = 0.01
+    tot_iters= 100
+
+    results = logistic_regression(neg_dict, pos_dict, num_words, lam, tot_iters, True)
+    train_results = results[0]
+    validation_results = results[1]
+    test_results = results[2]
+
+    x_axis = linspace(0, tot_iters, len(train_results))
+    plt_training = plt.plot(x_axis, train_results, label='Training')
+    plt_test = plt.plot(x_axis, test_results, label='Test')
+    plt_validation = plt.plot(x_axis, validation_results, label='Validation')
+    plt.ylim([0.2, 1.05])
+    plt.xlabel('# of Iterations')
+    plt.ylabel('Performance')
+    plt.title('Performance vs. # of iterations')
+    plt.legend(["Training", "Test", "Validation"], loc=7)
+    plt.savefig("logistic_regression_curve.png")
 
 if tuning_lam:
-
-    neg_dict, pos_dict = generate_dict('training_set')
+    neg_dict, pos_dict = generate_count_dict('training_set')
     num_words = get_numwords(neg_dict, pos_dict)[0]
+    tot_iters = 100
 
-    # store the highest test and validation accuracy
-    highest_test = []
-    highest_validation = []
+    # Store the highest (optimal) accuracies
+    highest_train = 0
+    highest_validation = 0
+    highest_test = 0
+    optimal_lambda = 0
 
     for lam in [0, 0.0001, 0.0003, 0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1]:
-        results = logistic_regression(neg_dict, pos_dict, num_words, lam)
-        print(results)
-        highest_test.append(results[0])
-        highest_validation.append(results[1])
+        results = logistic_regression(neg_dict, pos_dict, num_words, lam, tot_iters, False)
+        train_results = results[0]
+        validation_results = results[1]
+        test_results = results[2]
 
-    print(highest_test)
-    print(highest_validation)
+        validation = validation_results[-1]
+        print("======\nLambda: " + str(lam))
+        print("Validation: " + str(validation))
 
-    '''Output: [0.85500002, 0.83999997, 0.85500002, 0.85000002, 0.86500001, 0.86000001, 0.85000002, 0.86000001, 0.86500001, 0.875]
-               [0.83999997, 0.83999997, 0.82499999, 0.83999997, 0.81999999, 0.81, 0.85000002, 0.82499999, 0.83499998, 0.85000002]'''
+        if validation > highest_validation:
+            highest_train = train_results[-1]
+            highest_validation = validation
+            highest_test = test_results[-1]
+            optimal_lambda = lam
+
+    print("Final train: " + str(highest_train))
+    print("Final validation: " + str(highest_validation))
+    print("Final test: " + str(highest_test))
+    print("Optimal lambda: " + str(optimal_lambda))
