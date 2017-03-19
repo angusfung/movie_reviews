@@ -234,38 +234,6 @@ def max_validation():
             #print("training set:   " + "m = " + str(m) + " k = " + str(k), score2)
             print("=====================================================")
     print(combined_score,mk)
-    
-def most_predictive(neg_dict, pos_dict):
-    '''param dict {pos, neg} which is a dictionary containing (word, probability)
-       returns top 10 most common words
-    '''
-    neg_words = {}
-    pos_words = {}
-    
-    #take the difference of the probabilities
-
-    for word in neg_dict:
-        if word not in pos_dict:
-            neg_words[word] = neg_dict[word]
-        else:
-            neg_words[word] = abs(neg_dict[word] - 0.5*pos_dict[word])
-    
-    for word in pos_dict:
-        if word not in neg_dict:
-            pos_words[word] = pos_dict[word]
-        else:
-            pos_words[word] = abs(pos_dict[word] - 0.5*neg_dict[word])
-    
-    
-    
-    neg_words = sorted(neg_words.items(), key=lambda x: x[1], reverse=True)[:10]
-    pos_words = sorted(pos_words.items(), key=lambda x: x[1], reverse=True)[:10]
-    for i in neg_words:
-        print(i)
-    print("===============================")
-    for i in pos_words:
-        print(i)
-    return neg_words, pos_words
 
 def get_numwords(neg_dict, pos_dict):
     #return the number of unique words in all the reviews
@@ -283,6 +251,74 @@ def get_numwords(neg_dict, pos_dict):
     num_words = len(combined_list) 
     
     return num_words, combined_list
+        
+def most_predictive(neg_dict, pos_dict):
+    '''param dict {pos, neg} which is a dictionary containing (word, probability)
+       returns top 10 most common words
+    '''
+    neg_words = {}
+    pos_words = {}
+    
+    #take the difference of the probabilities
+
+    for word in neg_dict:
+        if word not in pos_dict:
+            neg_words[word] = neg_dict[word]
+        else:
+            neg_words[word] = abs(neg_dict[word] - pos_dict[word])
+    
+    for word in pos_dict:
+        if word not in neg_dict:
+            pos_words[word] = pos_dict[word]
+        else:
+            pos_words[word] = abs(pos_dict[word] - neg_dict[word])
+    
+    
+    
+    neg_words = sorted(neg_words.items(), key=lambda x: x[1], reverse=True)[:10]
+    pos_words = sorted(pos_words.items(), key=lambda x: x[1], reverse=True)[:10]
+    for i in neg_words:
+        print(i)
+    print("===============================")
+    for i in pos_words:
+        print(i)
+    return neg_words, pos_words
+
+def most_predictive_v2(neg_dict, pos_dict):
+    #calculate ai for each word
+    a = {}
+    neg_words = {}
+    pos_words = {}
+
+    combined_list = []
+    dicts = generate_dict('training_set')
+    num_words, combined_list = get_numwords(neg_dict, pos_dict)
+    
+    for word in combined_list:
+        if word in dicts[0] and word in dicts[1]:
+            a[word] = (dicts[0][word] + dicts[1][word]) #/ num_words
+        elif word in dicts[0]:
+            a[word] = dicts[0][word] #/ num_words
+        elif word in dicts[1]:
+            a[word] = dicts[1][word] #/ num_words
+            
+    #P(class | ai) ~ P(ai | class) *0.5 / P(ai)
+    
+    for word in neg_dict:
+        neg_words[word] = neg_dict[word] * 0.5 / a[word]
+        
+    for word in pos_dict:
+        pos_words[word] = pos_dict[word] * 0.5 / a[word]    
+    
+    neg_words = sorted(neg_words.items(), key=lambda x: x[1], reverse=True)[:10]
+    pos_words = sorted(pos_words.items(), key=lambda x: x[1], reverse=True)[:10]
+    
+    for i in neg_words:
+        print(i)
+    print("===============================")
+    for i in pos_words:
+        print(i)
+    return neg_words, pos_words
             
 def get_train(neg_dict, pos_dict):
     '''param dict {pos, neg} which is a dictionary containing (word, probability)
@@ -522,21 +558,17 @@ if run_part2 == True:
 
 if tuning_mk == True:
     max_validation()
-    '''I've ran this before and saved the results in a text file called mkscore.
-       Highest Performance Tuning:
-        validation set: m = 50 k = 50 (0.57, 0.82) test set:  m = 50 k = 50 (0.58, 0.78)
-    '''
+
     
 if run_part3 == True:
-    dicts = generate_dict('training_set')
-    m = 25
-    k = 55
-    # m = 45
-    # k = 25
+    dicts = generate_dict_normalized('training_set')
+    # m = 25
+    # k = 55
+    m = 45
+    k = 25
     neg_dict = calculate_prob(dicts[0], m, k)
-    dicts = generate_dict('training_set')
     pos_dict = calculate_prob(dicts[1], m, k)
-    most_predictive(neg_dict, pos_dict)
+    most_predictive_v2(neg_dict, pos_dict)
 
 if run_part4 == True:
 
