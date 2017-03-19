@@ -22,7 +22,7 @@ import tensorflow as tf
 
 prepare_data   = False #download dataset (just pull from github, don't need to run this)
 run_part1  = False #prints each word and its frequency
-run_part2  = True #prints naive bayes classification performance
+run_part2  = False #prints naive bayes classification performance
 tuning_mk  = False #tuning m and k for naive bayes
 run_part3  = True #printing 10 most important words for negative and positive reviews
 
@@ -176,7 +176,7 @@ def smoothen_probability(dict, m, k, size = 800):
     '''
     denominator_pos = k + sum(dict.values()) * len(dict.keys())
     for word in dict:
-        dict[word] = (dict[word] + m*k) / denominator_pos
+        dict[word] = (dict[word]* len(dict.keys()) + m*k) / denominator_pos
     return dict
 
 def classify(path, m, k,  neg_dict, pos_dict, size):
@@ -254,9 +254,7 @@ def max_validation():
     for m in np.arange(0.1,0.9,0.1):
         for k in np.arange(5.,20.,1.):
             dicts = generate_frequency_dict('training_set')
-            neg_dict = smoothen_probability(dicts[0], m, k)
-            pos_dict = smoothen_probability(dicts[1], m, k)
-            score = classify('validation_set', m, k, neg_dict, pos_dict, 200)
+            score = classify('validation_set', m, k, dicts[0], dicts[1], 200)
             if ((score[0] + score[1])/2.) > combined_score:
                 combined_score = (score[0] + score[1])/2
                 mk = (m,k) 
@@ -300,16 +298,14 @@ def most_predictive(neg_dict, pos_dict):
         if word not in pos_dict:
             neg_words[word] = neg_dict[word]
         else:
-            neg_words[word] = abs(neg_dict[word] - pos_dict[word])
+            neg_words[word] = neg_dict[word] - pos_dict[word]
     
     for word in pos_dict:
         if word not in neg_dict:
             pos_words[word] = pos_dict[word]
         else:
-            pos_words[word] = abs(pos_dict[word] - neg_dict[word])
-    
-    
-    
+            pos_words[word] = pos_dict[word] - neg_dict[word]
+
     neg_words = sorted(neg_words.items(), key=lambda x: x[1], reverse=True)[:10]
     pos_words = sorted(pos_words.items(), key=lambda x: x[1], reverse=True)[:10]
 
@@ -326,7 +322,7 @@ def most_predictive(neg_dict, pos_dict):
 # ======================================================================================================================
 
 
-if prepare_data == True:
+if prepare_data:
     #generate 2000 unique numbers
     random.seed(0) 
     neg_index = random.choice(range(1000), 1000, replace=False) #i.e 0-size
@@ -343,7 +339,7 @@ if prepare_data == True:
     split_dataset(neg_index[900:], pos_index[900:], "/validation_set", 200)
     print("Please wait while the validation set set is being processed...")
 
-if run_part1 == True:
+if run_part1:
     
     #combine all the dictionaries together, computing word frequency
     dicts1 = generate_count_dict('training_set')
@@ -375,7 +371,7 @@ if run_part1 == True:
     for word in words:
         print("Occurrence of " + word + " in the positive dataset is " + str(pos_dict[word]))
 
-if run_part2 == True:
+if run_part2:
     dicts = generate_frequency_dict('training_set')
     m = 0.5
     k = 16.
@@ -394,13 +390,13 @@ if run_part2 == True:
     print("Validation performance: " + str((score1[0]+score1[1])/2.))
     print("Test performance: " + str((score2[0]+score2[1])/2.))
 
-if tuning_mk == True:
+if tuning_mk:
     max_validation()
     
-if run_part3 == True:
+if run_part3:
     dicts = generate_frequency_dict('training_set')
     m = 0.5
     k = 16.
     neg_dict = smoothen_probability(dicts[0], m, k)
     pos_dict = smoothen_probability(dicts[1], m, k)
-    most_predictive(dicts[0], dicts[1])
+    most_predictive(neg_dict, pos_dict)
