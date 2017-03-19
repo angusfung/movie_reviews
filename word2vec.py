@@ -56,4 +56,4 @@ def word2vec(path):
                     word_context[(text[i-1], text[i+1])] = word
                 i += 1
     return word_context            
-a = word2vec('training_set')
+b = word2vec('training_set')
