@@ -24,7 +24,7 @@ prepare_data   = False #download dataset (just pull from github, don't need to r
 run_part1  = False #prints each word and its frequency
 run_part2  = False #prints naive bayes classification performance
 tuning_mk  = False #tuning m and k for naive bayes
-run_part3  = True #printing 10 most important words for negative and positive reviews
+run_part3  = False #printing 10 most important words for negative and positive reviews
 
 
 # ======================================================================================================================
@@ -174,7 +174,7 @@ def smoothen_probability(dict, m, k, size = 800):
     :param size: size can be specified (default 800)
     :return: smoothened word frequency dictionary
     '''
-    denominator_pos = k + sum(dict.values()) * len(dict.keys())
+    denominator_pos = k + np.sum(dict.values()) * len(dict.keys())
     for word in dict:
         dict[word] = (dict[word]* len(dict.keys()) + m*k) / denominator_pos
     return dict
