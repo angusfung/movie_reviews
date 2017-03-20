@@ -19,6 +19,14 @@ embeddings = load("embeddings.npz")["emb"]
 
 #generate ([context], target) pairs for each word 
 
+
+
+'''
+Notes: the below function needs to be more refined I think. For example I'm not sure if
+we need to keep track if the same ([context], target) pair occurs again. Right now it doesn't.
+'''
+
+
 def word2vec(path):
     '''
     Generates word occurence dictionaries for positive and negative reviews
