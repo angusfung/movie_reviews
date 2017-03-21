@@ -175,6 +175,8 @@ def logistic_regression(neg_dict, pos_dict, num_words, lam, total_iterations=500
     :param pos_dict: dictionary of positive reviews
     :param num_words: total number of words
     :param lam: regularizing parameter lambda
+    :param total_iterations: total number of training iterations
+    :param print_iterations: boolean variable indicating if printing results while training is required
     :return: performance
     '''
     # Initialize Tensor Flow variables
