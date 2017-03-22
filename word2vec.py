@@ -22,8 +22,8 @@ import tensorflow as tf
 # ======================================================================================================================
 
 
-run_part7  = True
-run_part8 = False
+run_part7  = False # Train LR model based on the wordvectors method
+run_part8 = False # Similar words printed - examples from the report
 
 
 # ======================================================================================================================
@@ -31,70 +31,49 @@ run_part8 = False
 # ======================================================================================================================
 
 
-def word2vec(path, size):
+def word2vec(path):
     '''
-
-
-
-
-    Generates word occurence dictionaries for positive and negative reviews
+    Generates adjacent word tuple list from review database
     :param path: the location of the training set
-    :return:
     '''
-    total = 0
-    total_non = 0
-    word_context = {'adjacent': [], 'non_adjacent': []}
+
+    word_context = {'adjacent': []}
     # Go through the negative reviews
     for review in os.listdir(path + "/neg"):
         with open(os.getcwd()+"/"+path+"/neg/"+review) as f:
             text = f.read().split()
             for i in range(len(text)-1):
-                total += 1
                 word_context['adjacent'].append((text[i], text[i+1]))
-                if total > size/2:
-                    break
-                for j in range(i+5, len(text)):
-                    word_context['non_adjacent'].append((text[i], text[j]))
-                    if total_non > size/2:
-                        break
-                    total_non += 1
-                
+
     # Go through the positive reviews
     for review in os.listdir(path + "/pos"):
         with  open(os.getcwd()+"/"+path+"/pos/"+review)as f:
             text = f.read().split()
             for i in range(len(text)-1):
-                total += 1
                 word_context['adjacent'].append((text[i], text[i+1]))
-                if total > size:
-                    break
-                for j in range(i+2, len(text)):
-                    word_context['non_adjacent'].append((text[i], text[j]))
-                    if total_non > size:
-                        break
-                    total_non += 1
+
     return word_context
 
 def get_datasets(word_contexts, word_index_dictionary, embeddings, train_size, test_val_size):
     '''
-
-
-
-
     Generates matricies for the training set according to dictionaries specified
+    Note that training examples for non-adjacent words are generated automatically
+    ... the assumption is reasonable according to Piazza posts
     :param neg_dict: dictionary of negative reviews
     :param pos_dict: dictionary of positive reviews
-    :return: x and y matricies prepared for classificaiton
-            X is a MxN vector, where M is the number of reviews
-                                     N is the number of words
-            Y is a Mx1 vector, where M is the number of reviews
+    :return: x and y matrices prepared for classification
+            X is a Mx256 vector, where M is the number of adjacent/non-adjacent words
+                                     256 indicates 2 concatenated word vecotrs
+            Y is a Mx1 vector, where M is the number of adjacent/non-adjacent words
     '''
 
     working_sets = {}
     random.seed(34)
     adjacent_indices = random.choice(len(word_contexts['adjacent']), train_size/2 + test_val_size, replace=False)
-    random.seed(43)
-    non_adjacent_indices = random.choice(len(word_contexts['non_adjacent']), train_size/2 + test_val_size, replace=False)
+    random.seed(35)
+    non_adjacent_indices1 = random.choice(len(embeddings), train_size/2 + test_val_size, replace=False)
+    random.seed(36)
+    non_adjacent_indices2 = random.choice(len(embeddings), train_size/2 + test_val_size, replace=False)
 
     x_train = zeros((train_size, 256))
     y_train = zeros((train_size, 2))  # one hot encoding
@@ -137,30 +116,30 @@ def get_datasets(word_contexts, word_index_dictionary, embeddings, train_size, t
     # Fill up the second half - non_adjacent words
     curr_row = train_size/2
     for i in range(0, train_size / 2):
-        index = non_adjacent_indices[i]
-        word_tuple = (word_contexts['non_adjacent'])[index]
-        a = embeddings[word_index_dictionary[word_tuple[0]]]
-        b = embeddings[word_index_dictionary[word_tuple[1]]]
+        index1 = non_adjacent_indices1[i]
+        index2 = non_adjacent_indices2[i]
+        a = embeddings[index1]
+        b = embeddings[index2]
         x_train[curr_row, :] = np.concatenate([a, b])
         y_train[curr_row] = [0., 1.]
         curr_row += 1
 
     curr_row = test_val_size/2
     for i in range(train_size / 2, train_size / 2 + test_val_size / 2):
-        index = non_adjacent_indices[i]
-        word_tuple = (word_contexts['non_adjacent'])[index]
-        a = embeddings[word_index_dictionary[word_tuple[0]]]
-        b = embeddings[word_index_dictionary[word_tuple[1]]]
+        index1 = non_adjacent_indices1[i]
+        index2 = non_adjacent_indices2[i]
+        a = embeddings[index1]
+        b = embeddings[index2]
         x_test[curr_row, :] = np.concatenate([a, b])
         y_test[curr_row] = [0., 1.]
         curr_row += 1
 
     curr_row = test_val_size/2
     for i in range(train_size / 2 + test_val_size / 2, train_size / 2 + test_val_size):
-        index = non_adjacent_indices[i]
-        word_tuple = (word_contexts['non_adjacent'])[index]
-        a = embeddings[word_index_dictionary[word_tuple[0]]]
-        b = embeddings[word_index_dictionary[word_tuple[1]]]
+        index1 = non_adjacent_indices1[i]
+        index2 = non_adjacent_indices2[i]
+        a = embeddings[index1]
+        b = embeddings[index2]
         x_validation[curr_row, :] = np.concatenate([a, b])
         y_validation[curr_row] = [0., 1.]
         curr_row += 1
@@ -172,17 +151,15 @@ def get_datasets(word_contexts, word_index_dictionary, embeddings, train_size, t
 
 def logistic_regression_part7(word_contexts, word_index_dictionary, embeddings, train_size, test_val_size, lam, total_iterations):
     '''
-
-
-
-
-
-    Performs logistic regression with Tensor Flow
-    :param neg_dict: dictionary of negative reviews
-    :param pos_dict: dictionary of positive reviews
-    :param num_words: total number of words
-    :param lam: regularizing parameter lambda
-    :return: performance
+    Trains a LR model for prediciting adjacent words based on wordvectors
+    :param word_contexts: array specifying tuples of adjacent words
+    :param embeddings: list containing word vectors
+    :param word_index_dictionary: dictionary specifying embedding indices
+    :param train_size: number of adjacent/non-adjacent examples used in training
+    :param test_val_size: number of adjacent/non-adjacent examples used in both testing and validation
+    :param lam: regularization parameter
+    :param total_iterations: number of training iterations
+    :return: array of training results
     '''
 
     # Initialize Tensor Flow variables
@@ -234,7 +211,13 @@ def logistic_regression_part7(word_contexts, word_index_dictionary, embeddings, 
     return (train_results, validation_results, test_results)
 
 def find_similar(embeddings, word_index_dictionary, word, n):
-
+    '''
+    Finds and prints n words that have the closest wordvector to the one specified by 'word'
+    :param embeddings: list containing word vectors
+    :param word_index_dictionary: dictionary specifying embedding indices
+    :param word: word specifying similaity
+    :param n: number of words
+    '''
     target_vector = embeddings[word_index_dictionary[word]]
     cosine_distances_dictionary = {}
     for similar_word in word_index_dictionary.keys():
@@ -249,24 +232,22 @@ def find_similar(embeddings, word_index_dictionary, word, n):
     return True
 
 if run_part7:
-    train_size = 150000
-    test_val_size = 15000
-    raw_tuples_number = 100000
-    iters = 250
-    lam = 0.01
+    # Optimal parameters
+    train_size = 50000
+    test_val_size = 5000
+    iters = 1000
+    lam = 0.001
 
     embeddings = load("embeddings.npz")["emb"]
-    word_contexts = word2vec('training_set', raw_tuples_number)
+    word_contexts = word2vec('training_set')
     word_indices = load("embeddings.npz")["word2ind"].flatten()[0]
 
     # Revert the word_indices list to a proper usable format
     word_index_dictionary = {}
     for i in range(len(word_indices)):
         word_index_dictionary[word_indices[i]] = i
-
-    print("Done constructing the index dictionary")
-
-    # Sanity check
+    print len(word_contexts['adjacent'])
+    # Sanity check - remove words, which don't have embeddings
     i = 0
     while i < len(word_contexts['adjacent']):
         word_tuple = (word_contexts['adjacent'])[i]
@@ -275,16 +256,6 @@ if run_part7:
         else:
             del (word_contexts['adjacent'])[i]
 
-    i = 0
-    while i < len(word_contexts['non_adjacent']):
-        word_tuple = (word_contexts['non_adjacent'])[i]
-        if (word_tuple[0] in word_index_dictionary) and (word_tuple[1] in word_index_dictionary):
-            i += 1
-        else:
-            del (word_contexts['non_adjacent'])[i]
-
-    print("Done sanity check")
-
     # Now, train the LR model
     results = logistic_regression_part7(word_contexts, word_index_dictionary, embeddings, train_size, test_val_size, lam, iters)
 
@@ -292,9 +263,9 @@ if run_part7:
     validation_results = results[1]
     test_results = results[2]
 
-    print(train_results[-1])
-    print(validation_results[-1])
-    print(test_results[-1])
+    print("Final training accuracy: " + str(train_results[-1]))
+    print("Final validation accuracy: " + str(validation_results[-1]))
+    print("Final testing accuracy: " + str(test_results[-1]))
 
 if run_part8:
 
@@ -306,10 +277,8 @@ if run_part8:
     for i in range(len(word_indices)):
         word_index_dictionary[word_indices[i]] = i
 
-    print("Done constructing the index dictionary")
+    find_similar(embeddings, word_index_dictionary, 'story', 10)
+    find_similar(embeddings, word_index_dictionary, 'good', 10)
 
-    #find_similar(embeddings, word_index_dictionary, 'story', 10)
-    #find_similar(embeddings, word_index_dictionary, 'good', 10)
-
-    find_similar(embeddings, word_index_dictionary, 'problem', 10)
-    find_similar(embeddings, word_index_dictionary, 'scene', 10)
+    find_similar(embeddings, word_index_dictionary, 'tv', 10)
+    find_similar(embeddings, word_index_dictionary, 'space', 10)
